@@ -1,0 +1,33 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group = 'dev.oom-wg.wm.wmlang'
+version = 'main'
+
+sourceSets.main.java.srcDirs = ['src/main/kotlin', '../deps/fvv/kotlin']
+
+dependencies {
+    compileOnly gradleApi()
+    compileOnly localGroovy()
+
+    //noinspection GradleDynamicVersion
+    compileOnly 'com.android.tools.build:gradle:+'
+}
+
+gradlePlugin {
+    plugins {
+        WMLang {
+            id = 'dev.oom-wg.wmlang'
+            implementationClass = 'dev.oom_wg.wm.wmlang.WMLangPlugin'
+        }
+    }
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+}

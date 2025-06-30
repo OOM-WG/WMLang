@@ -1,0 +1,4 @@
+[submodule "deps/fvv"]
+	path = deps/fvv
+	url = https://github.com/OOM-WG/FVV.git
+	branch = fw
