@@ -20,7 +20,7 @@ class WMLangPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.extensions.create("WMLang", WMLangExtension::class.java)
         project.pluginManager.withPlugin("com.android.application") {
-            project.dependencies.add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg:WMLang:base:wm-SNAPSHOT")
+            project.dependencies.add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.WMLang:base:wm-SNAPSHOT")
             val android = project.extensions.getByName("android") as AppExtension
             project.afterEvaluate {
                 val ext = project.extensions.getByType(WMLangExtension::class.java)
@@ -33,7 +33,7 @@ class WMLangPlugin : Plugin<Project> {
                 if (ext.base!!.not() && ext.compose!!.not()) throw GradleException("Nothing to do.")
 
                 if (ext.compose!!) project.dependencies.add(
-                    JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg:WMLang:compose:wm-SNAPSHOT"
+                    JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.WMLang:compose:wm-SNAPSHOT"
                 )
 
                 val generatedDir = project.layout.buildDirectory.dir("generated/wmlang/kotlin").get().asFile
