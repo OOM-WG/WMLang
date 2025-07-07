@@ -43,87 +43,72 @@ class WMLangPlugin : Plugin<Project> {
                     mkdirs()
                 }
                 val configDir = project.file(ext.configDir!!)
-                val objs = configDir.listFiles { _, name -> name.endsWith(".fvv") }?.mapNotNull { fvvFile ->
-                    fvvFile.name.removeSuffix(".fvv").run { replace("_", "").uppercase() }
-                } ?: throw GradleException("No fvv file found.")
-                configDir.listFiles { _, name -> name.endsWith(".fvv") }?.forEach { fvvFile ->
-                    val tag = fvvFile.name.removeSuffix(".fvv")
-                    if (tag == ext.baseLang) WMLangGenerator.generateMain(
-                        fvvFile, File(generatedDir, "base.kt"), objs, ext.base!!, ext.compose!!
-                    )
-                    WMLangGenerator.generateMulti(fvvFile, File(generatedDir, "$tag.kt"))
-                }
-            }
-        }
-    }
-}
-
-object WMLangGenerator {
-    fun generateMain(input: File, output: File, objects: List<String>, base: Boolean, compose: Boolean) {
-        FVVV(null).apply {
-            addFromString(input.readText())
-            buildString {
-                appendLine("package dev.oom_wg.wm.wmlang\n")
-                if (compose) {
-                    appendLine("import androidx.compose.runtime.Composable")
-                    appendLine("import com.highcapable.pangutext.android.PanguText\n")
-                }
-                appendLine("object WMLang {")
-                fun runWrite(target: MutableMap<String, FVVV>, indentLevel: Int): Unit = with(target) {
-                    forEach { (k, v) ->
-                        val indentStr = " ".repeat(indentLevel * 4)
-                        if (v.sub.isEmpty()) {
-                            appendLine("${indentStr}internal val _$k = WMLangBase(\"$v\")")
-                            val tip = v.string.replace(Regex("(?<!^)\\\\n(?!$)")) {
-                                "\n$indentStr *\n$indentStr * "
-                            }
-                            if (base) {
-                                appendLine("$indentStr/** $tip")
-                                appendLine("$indentStr * @suppress compose */")
-                                appendLine($$"$${indentStr}val $$k get() = \"$_$$k\"")
-                            }
-                            if (compose) {
-                                appendLine("$indentStr/** $tip")
-                                appendLine("$indentStr * @suppress non-compose */")
-                                appendLine("$indentStr@Composable")
-                                appendLine($$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().format(*args))}\"")
-                            }
-                        } else {
-                            appendLine("${indentStr}object $k {")
-                            runWrite(v.sub, indentLevel + 1)
-                            appendLine("$indentStr}")
+                configDir.listFiles { file -> file.isDirectory }
+                    .apply { if (!map { it.name }.contains(ext.baseLang!!)) throw GradleException("No baseLang found.") }
+                    .associate { dir ->
+                        dir.name to FVVV().apply {
+                            dir.walkTopDown().filter { it.isFile && it.extension == "fvv" }
+                                .forEach { addFromString(it.readText()) }
                         }
+                    }.also { tag2FVV ->
+                        buildString {
+                            appendLine("package dev.oom_wg.wm.wmlang\n")
+                            if (ext.compose!!) {
+                                appendLine("import androidx.compose.runtime.Composable")
+                                appendLine("import com.highcapable.pangutext.android.PanguText\n")
+                            }
+                            appendLine("object WMLang {")
+                            fun runWrite(
+                                target: MutableMap<String, FVVV>,
+                                path: List<String> = emptyList(),
+                                indentLevel: Int = 1,
+                            ): Unit = with(target) {
+                                forEach { (k, v) ->
+                                    val indentStr = " ".repeat(indentLevel * 4)
+                                    if (v.sub.isEmpty()) {
+                                        val na = mutableListOf<String>()
+                                        appendLine(
+                                            "${indentStr}private val _$k by lazy { WMLangBase(\"$v\", mapOf(${
+                                                tag2FVV.mapNotNull { (tag, fvv) ->
+                                                    path.fold(fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
+                                                        .also { if (it == null) na += tag }
+                                                }.joinToString(", ")
+                                            })) }"
+                                        )
+                                        val tip = v.string.replace("(?<!^)\\\\n(?!$)".toRegex()) {
+                                            "\n$indentStr *\n$indentStr * "
+                                        }
+                                        if (ext.base!!) {
+                                            appendLine("$indentStr/** $tip")
+                                            appendLine("$indentStr * @suppress compose")
+                                            if (na.isNotEmpty()) appendLine(
+                                                "$indentStr * NA: ${na.joinToString(", ")}"
+                                            )
+                                            appendLine("$indentStr **/")
+                                            appendLine($$"$${indentStr}val $$k get() = \"$_$$k\"")
+                                        }
+                                        if (ext.compose!!) {
+                                            appendLine("$indentStr/** $tip")
+                                            appendLine("$indentStr * @suppress non-compose")
+                                            if (na.isNotEmpty()) appendLine(
+                                                "$indentStr * NA: ${na.joinToString(", ")}"
+                                            )
+                                            appendLine("$indentStr **/")
+                                            appendLine("$indentStr@Composable")
+                                            appendLine($$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().format(*args))}\"")
+                                        }
+                                    } else {
+                                        appendLine("${indentStr}object $k {")
+                                        runWrite(v.sub, path + k, indentLevel + 1)
+                                        appendLine("$indentStr}")
+                                    }
+                                }
+                            }
+                            runWrite(tag2FVV[ext.baseLang!!]!!.sub)
+                            appendLine("}")
+                        }.also { File(generatedDir, "wmlang.kt").writeText(it) }
                     }
-                }
-                appendLine("    fun init() {")
-                objects.forEach {
-                    appendLine("        WMLang$it()")
-                }
-                appendLine("    }\n")
-                runWrite(sub, 1)
-                appendLine("}")
-            }.also { output.writeText(it) }
-        }
-    }
-
-    fun generateMulti(input: File, output: File) {
-        FVVV(null).apply {
-            addFromString(input.readText())
-            buildString {
-                val lang = input.name.removeSuffix(".fvv")
-                appendLine("package dev.oom_wg.wm.wmlang\n")
-                appendLine("class WMLang${lang.replace("_", "").uppercase()} {")
-                appendLine("    init {")
-                fun runWrite(target: MutableMap<String, FVVV>, parent: String): Unit = with(target) {
-                    forEach { (k, v) ->
-                        if (v.sub.isEmpty()) appendLine("        WMLang.${parent}_$k[\"$lang\"] = \"$v\"")
-                        else runWrite(v.sub, "$parent$k.")
-                    }
-                }
-                runWrite(sub, "")
-                appendLine("    }")
-                appendLine("}")
-            }.also { output.writeText(it) }
+            }
         }
     }
 }

@@ -40,5 +40,4 @@ rootProject.name = 'WMLang'
 
 include ':base'
 include ':compose'
-include ':fake'
 include ':plugin'

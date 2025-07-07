@@ -5,7 +5,7 @@ import com.highcapable.betterandroid.system.extension.tool.SystemVersion
 import java.util.*
 
 object WMLangProvider {
-    fun getTags(): List<String> = mutableListOf<String>().also {
+    fun getTags() = mutableListOf<String>().also {
         if (SystemVersion.isHighOrEqualsTo(SystemVersion.N)) {
             val list = LocaleList.getDefault()
             for (i in 0 until list.size()) {
@@ -22,7 +22,7 @@ object WMLangProvider {
 
     @Volatile
     private var _locTags: List<String>? = null
-    internal val locTags: List<String> get() = _locTags ?: getTags().also { _locTags = it }
+    internal val locTags get() = _locTags ?: getTags().also { _locTags = it }
 
     @Suppress("unused")
     fun clearCache() {
@@ -30,11 +30,6 @@ object WMLangProvider {
     }
 }
 
-class WMLangBase(val dflt: String) {
-    val values: MutableMap<String, String> = mutableMapOf()
-    operator fun set(tag: String, value: String) {
-        values[tag] = value
-    }
-
-    override fun toString(): String = WMLangProvider.locTags.firstNotNullOfOrNull { values[it] } ?: dflt
+class WMLangBase(val dflt: String, val values: Map<String, String>) {
+    override fun toString() = WMLangProvider.locTags.firstNotNullOfOrNull { values[it] } ?: dflt
 }

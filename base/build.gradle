@@ -31,10 +31,6 @@ android {
 }
 
 dependencies {
-    compileOnly(project(":fake"))
-
-    //noinspection GradleDynamicVersion
-    implementation 'androidx.startup:startup-runtime:+'
     //noinspection GradleDynamicVersion
     implementation 'com.highcapable.betterandroid:system-extension:+'
 }
