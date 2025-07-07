@@ -95,7 +95,7 @@ class WMLangPlugin : Plugin<Project> {
                                             )
                                             appendLine("$indentStr **/")
                                             appendLine("$indentStr@Composable")
-                                            appendLine($$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().format(*args))}\"")
+                                            appendLine($$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { if (args.isEmpty()) this else format(*args) })}\"")
                                         }
                                     } else {
                                         appendLine("${indentStr}object $k {")
