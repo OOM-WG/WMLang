@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 
-@get:Composable
-internal val WMLangProvider.composeLocTags: List<String> get() = remember(LocalConfiguration.current) { getTags() }
+@Composable
+private fun WMLangProvider.locTags() = remember(LocalConfiguration.current) { getTags() }
 
 @Composable
-fun WMLangBase.get(): String = WMLangProvider.composeLocTags.firstNotNullOfOrNull { values[it] } ?: dflt
+fun WMLangBase.get() = WMLangProvider.locTags().firstNotNullOfOrNull { vals[it] } ?: dflt
