@@ -40,6 +40,39 @@ afterEvaluate {
                 groupId = 'dev.oom-wg.wm.wmlang'
                 artifactId = 'base'
                 version = 'main'
+
+                pom {
+                    name.set("WMLang")
+                    description.set("Android Multi Language Framework")
+                    url.set("https://github.com/OOM-WG/WMLang")
+
+                    licenses {
+                        license {
+                            name.set("F2DLPRL")
+                            url.set("https://license.fileto.download/LICENSE.txt")
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id.set("oom-wg")
+                            name.set("OOM. WG.")
+                            email.set("oom@200ok.work")
+                            url.set("https://oom-wg.dev")
+                        }
+                    }
+
+                    organization {
+                        name.set("OOM. WG.")
+                        url.set("https://oom-wg.dev")
+                    }
+
+                    scm {
+                        connection.set("scm:git:https://github.com/OOM-WG/WMLang.git")
+                        developerConnection.set("scm:git:https://github.com/OOM-WG/WMLang.git")
+                        url.set("https://github.com/OOM-WG/WMLang.git")
+                    }
+                }
             }
         }
         repositories {
