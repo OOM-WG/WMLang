@@ -61,6 +61,7 @@ afterEvaluate {
                         license {
                             name.set("F2DLPRL")
                             url.set("https://license.fileto.download/LICENSE.txt")
+                            distribution.set("repo")
                         }
                     }
 
