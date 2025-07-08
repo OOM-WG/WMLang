@@ -22,6 +22,8 @@ gradlePlugin {
         WMLang {
             id = 'dev.oom-wg.wmlang'
             implementationClass = 'dev.oom_wg.wm.wmlang.WMLangPlugin'
+            displayName = "WMLang Gradle Plugin"
+            description = "Android Multi Language Framework"
         }
     }
 }
