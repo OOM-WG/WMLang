@@ -6,28 +6,27 @@ import android.os.LocaleList
 import java.util.*
 
 object WMLangProvider {
-    fun getTags() = buildList {
-        (if (VERSION.SDK_INT >= VERSION_CODES.N) LocaleList.getDefault().run { List(size()) { this[it] } }
-        else listOf(Locale.getDefault())).forEach { loc ->
-            when {
-                VERSION.SDK_INT >= VERSION_CODES.N -> loc.toLanguageTag().replace('-', '_')
-                loc.country.isNullOrBlank() -> loc.language
-                else -> "${loc.language}_${loc.country}"
-            }.also { add(it) }
-            if (loc.language !in this) add(loc.language)
-        }
+  fun getTags() = buildList {
+    (if (VERSION.SDK_INT >= VERSION_CODES.N) LocaleList.getDefault().run { List(size()) { this[it] } }
+    else listOf(Locale.getDefault())).forEach { loc ->
+      when {
+        VERSION.SDK_INT >= VERSION_CODES.N -> loc.toLanguageTag().replace('-', '_')
+        loc.country.isNullOrBlank()        -> loc.language
+        else                               -> "${loc.language}_${loc.country}"
+      }.also { add(it) }
+      if (loc.language !in this) add(loc.language)
     }
+  }
 
-    @Volatile
-    private var _locTags: List<String>? = null
-    internal val locTags get() = _locTags ?: getTags().also { _locTags = it }
+  @Volatile private var _locTags: List<String>? = null
+  internal val locTags get() = _locTags ?: getTags().also { _locTags = it }
 
-    @Suppress("unused")
-    fun clearCache() {
-        _locTags = null
-    }
+  @Suppress("unused")
+  fun clearCache() {
+    _locTags = null
+  }
 }
 
 class WMLangBase(val dflt: String, val vals: Map<String, String>) {
-    override fun toString() = WMLangProvider.locTags.firstNotNullOfOrNull { vals[it] } ?: dflt
+  override fun toString() = WMLangProvider.locTags.firstNotNullOfOrNull { vals[it] } ?: dflt
 }
