@@ -76,7 +76,7 @@ class WMLangPlugin : Plugin<Project> {
                                                 })) }"
                                             )
                                         }.joinToString(", ")
-                                        println(path.joinToString(".") + ".$k NA: $na")
+                                        if (na.isNotEmpty()) println(path.joinToString(".") + ".$k NA: $na")
                                         val tip = v.string.replace("(?<!^)\\\\n(?!$)".toRegex()) {
                                             "\n$indentStr *\n$indentStr * "
                                         }
