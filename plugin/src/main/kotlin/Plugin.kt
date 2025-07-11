@@ -66,33 +66,31 @@ class WMLangPlugin : Plugin<Project> {
                                 forEach { (k, v) ->
                                     val indentStr = " ".repeat(indentLevel * 4)
                                     if (v.sub.isEmpty()) {
-                                        val na = mutableListOf<String>()
-                                        appendLine(
-                                            "${indentStr}private val _$k by lazy { WMLangBase(\"$v\", mapOf(${
-                                                tag2FVV.mapNotNull { (tag, fvv) ->
-                                                    path.fold(fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
-                                                        .also { if (it == null) na += tag }
-                                                }.joinToString(", ")
-                                            })) }"
-                                        )
+                                        val na = buildList {
+                                            appendLine(
+                                                "${indentStr}private val _$k by lazy { WMLangBase(\"$v\", mapOf(${
+                                                    tag2FVV.mapNotNull { (tag, fvv) ->
+                                                        path.fold(fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
+                                                            .also { if (it == null) add(tag) }
+                                                    }.joinToString(", ")
+                                                })) }"
+                                            )
+                                        }.joinToString(", ")
+                                        println(path.joinToString(".") + ".$k NA: $na")
                                         val tip = v.string.replace("(?<!^)\\\\n(?!$)".toRegex()) {
                                             "\n$indentStr *\n$indentStr * "
                                         }
                                         if (ext.base!!) {
                                             appendLine("$indentStr/** $tip")
                                             appendLine("$indentStr * @suppress compose")
-                                            if (na.isNotEmpty()) appendLine(
-                                                "$indentStr * NA: ${na.joinToString(", ")}"
-                                            )
+                                            if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
                                             appendLine("$indentStr **/")
                                             appendLine($$"$${indentStr}val $$k get() = \"$_$$k\"")
                                         }
                                         if (ext.compose!!) {
                                             appendLine("$indentStr/** $tip")
                                             appendLine("$indentStr * @suppress non-compose")
-                                            if (na.isNotEmpty()) appendLine(
-                                                "$indentStr * NA: ${na.joinToString(", ")}"
-                                            )
+                                            if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
                                             appendLine("$indentStr **/")
                                             appendLine("$indentStr@Composable")
                                             appendLine($$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { if (args.isEmpty()) this else format(*args) })}\"")
