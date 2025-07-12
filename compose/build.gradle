@@ -10,7 +10,7 @@ plugins {
 kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_24
 
 android {
-    namespace 'dev.oom_wg.wm.wmlang.base'
+    namespace 'dev.oom_wg.purejoy.mlang.base'
     compileSdk 36
 
     defaultConfig {
@@ -48,14 +48,14 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'dev.oom-wg.wm.wmlang'
+                groupId = 'dev.oom-wg.purejoy.mlang'
                 artifactId = 'compose'
                 version = 'main'
 
                 pom {
-                    name.set("WMLang for Jetpack Compose")
+                    name.set("PureJoy MultiLang for Jetpack Compose")
                     description.set("Android Multi Language Framework for Jetpack Compose")
-                    url.set("https://github.com/OOM-WG/WMLang")
+                    url.set("https://github.com/OOM-WG/PureJoy-MultiLang")
 
                     licenses {
                         license {
@@ -80,9 +80,9 @@ afterEvaluate {
                     }
 
                     scm {
-                        connection.set("scm:git:https://github.com/OOM-WG/WMLang.git")
-                        developerConnection.set("scm:git:https://github.com/OOM-WG/WMLang.git")
-                        url.set("https://github.com/OOM-WG/WMLang.git")
+                        connection.set("scm:git:https://github.com/OOM-WG/PureJoy-MultiLang.git")
+                        developerConnection.set("scm:git:https://github.com/OOM-WG/PureJoy-MultiLang.git")
+                        url.set("https://github.com/OOM-WG/PureJoy-MultiLang.git")
                     }
                 }
             }
