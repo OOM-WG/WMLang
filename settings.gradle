@@ -36,7 +36,7 @@ buildscript {
     }
 }
 
-rootProject.name = 'WMLang'
+rootProject.name = 'PureJoy MultiLang'
 
 include ':base'
 include ':compose'

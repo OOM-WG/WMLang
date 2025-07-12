@@ -1,4 +1,4 @@
-package dev.oom_wg.wm.wmlang
+package dev.oom_wg.purejoy.mlang
 
 import com.android.build.gradle.AppExtension
 import in_.sakit.fvv.FVVV
@@ -6,7 +6,7 @@ import org.gradle.api.*
 import org.gradle.api.plugins.JavaPlugin
 import java.io.File
 
-open class WMLangExtension {
+open class MLangExtension {
   var configDir: String? = null
   var baseLang: String? = null
   var base: Boolean? = null
@@ -14,26 +14,26 @@ open class WMLangExtension {
 }
 
 @Suppress("unused")
-class WMLangPlugin : Plugin<Project> {
+class MLangPlugin : Plugin<Project> {
   override fun apply(project: Project) {
-    project.extensions.create("WMLang", WMLangExtension::class.java)
+    project.extensions.create("MLang", MLangExtension::class.java)
     project.pluginManager.withPlugin("com.android.application") {
       project.dependencies.add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-        "dev.oom-wg.WMLang:base:wm-SNAPSHOT")
+        "dev.oom-wg.PureJoy-MultiLang:base:purejoy-SNAPSHOT")
       val android = project.extensions.getByName("android") as AppExtension
       project.afterEvaluate {
-        val ext = project.extensions.getByType(WMLangExtension::class.java)
-        listOf(WMLangExtension::configDir, WMLangExtension::baseLang).forEach {
-          if (it.get(ext).isNullOrBlank()) throw GradleException("No WMLang.${it.name} found.")
+        val ext = project.extensions.getByType(MLangExtension::class.java)
+        listOf(MLangExtension::configDir, MLangExtension::baseLang).forEach {
+          if (it.get(ext).isNullOrBlank()) throw GradleException("No MLang.${it.name} found.")
         }
-        listOf(WMLangExtension::base, WMLangExtension::compose).forEach {
-          if (it.get(ext) == null) throw GradleException("No WMLang.${it.name} found.")
+        listOf(MLangExtension::base, MLangExtension::compose).forEach {
+          if (it.get(ext) == null) throw GradleException("No MLang.${it.name} found.")
         }
         if (ext.base!!.not() && ext.compose!!.not()) throw GradleException("Nothing to do.")
         if (ext.compose!!) project.dependencies.add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-          "dev.oom-wg.WMLang:compose:wm-SNAPSHOT")
+          "dev.oom-wg.PureJoy-MultiLang:compose:purejoy-SNAPSHOT")
 
-        val generatedDir = project.layout.buildDirectory.dir("generated/wmlang/kotlin").get().asFile
+        val generatedDir = project.layout.buildDirectory.dir("generated/mlang/kotlin").get().asFile
         android.sourceSets.getByName("main").java.srcDir(generatedDir)
         generatedDir.apply {
           if (exists()) deleteRecursively()
@@ -48,12 +48,12 @@ class WMLangPlugin : Plugin<Project> {
           }
         }.also { tag2FVV ->
           buildString {
-            appendLine("package dev.oom_wg.wm.wmlang\n")
+            appendLine("package dev.oom_wg.purejoy.mlang\n")
             if (ext.compose!!) {
               appendLine("import androidx.compose.runtime.Composable")
               appendLine("import com.highcapable.pangutext.android.PanguText\n")
             }
-            appendLine("object WMLang {")
+            appendLine("object MLang {")
             fun runWrite(
               target: MutableMap<String, FVVV>,
               path: List<String> = emptyList(),
@@ -63,7 +63,7 @@ class WMLangPlugin : Plugin<Project> {
                 val indentStr = " ".repeat(indentLevel * 4)
                 if (v.sub.isEmpty()) {
                   val na = buildList {
-                    appendLine("${indentStr}private val _$k by lazy { WMLangBase(\"$v\", mapOf(${
+                    appendLine("${indentStr}private val _$k by lazy { MLangBase(\"$v\", mapOf(${
                       tag2FVV.mapNotNull { (tag, fvv) ->
                         path.fold(
                           fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
@@ -100,7 +100,7 @@ class WMLangPlugin : Plugin<Project> {
             }
             runWrite(tag2FVV[ext.baseLang!!]!!.sub)
             appendLine("}")
-          }.also { File(generatedDir, "wmlang.kt").writeText(it) }
+          }.also { File(generatedDir, "mlang.kt").writeText(it) }
         }
       }
     }
