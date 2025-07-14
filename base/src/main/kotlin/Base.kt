@@ -19,7 +19,7 @@ object MLangProvider {
   }
 
   @Volatile private var _locTags: List<String>? = null
-  internal val locTags get() = _locTags ?: getTags().also { _locTags = it }
+  val locTags get() = _locTags ?: getTags().also { _locTags = it }
 
   @Suppress("unused")
   fun clearCache() {
