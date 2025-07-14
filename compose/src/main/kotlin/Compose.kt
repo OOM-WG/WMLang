@@ -5,7 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 
 @Composable
-private fun MLangProvider.locTags() = remember(LocalConfiguration.current) { getTags() }
+fun MLangProvider.locTags() = remember(LocalConfiguration.current) { getTags() }
 
 @Composable
 fun MLangBase.get() = MLangProvider.locTags().firstNotNullOfOrNull { vals[it] } ?: dflt
