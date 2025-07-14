@@ -40,4 +40,5 @@ rootProject.name = 'PureJoy MultiLang'
 
 include ':base'
 include ':compose'
+include ':systxt'
 include ':plugin'
