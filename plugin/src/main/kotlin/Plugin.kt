@@ -1,7 +1,7 @@
 package dev.oom_wg.purejoy.mlang
 
 import com.android.build.gradle.AppExtension
-import in_.sakit.fvv.FVVV
+import `in`.sakit.fvv.FVVV
 import org.gradle.api.*
 import org.gradle.api.plugins.JavaPlugin
 import java.io.File
