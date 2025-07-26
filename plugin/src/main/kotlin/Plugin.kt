@@ -89,7 +89,7 @@ class MLangPlugin : Plugin<Project> {
                     appendLine("$indentStr **/")
                     appendLine("$indentStr@Composable")
                     appendLine(
-                      $$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { if (args.isEmpty()) this else format(*args) })}\"")
+                      $$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { takeIf { args.isEmpty() } ?: format(*args) })}\"")
                   }
                 } else {
                   appendLine("${indentStr}object $k {")
