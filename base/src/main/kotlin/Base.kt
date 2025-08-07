@@ -8,13 +8,11 @@ import java.util.*
 object MLangProvider {
   fun getTags() = buildList {
     (if (VERSION.SDK_INT >= VERSION_CODES.N) LocaleList.getDefault().run { List(size()) { this[it] } }
-    else listOf(Locale.getDefault())).forEach { loc ->
-      when {
-        VERSION.SDK_INT >= VERSION_CODES.N -> loc.toLanguageTag().replace('-', '_')
-        loc.country.isNullOrBlank()        -> loc.language
-        else                               -> "${loc.language}_${loc.country}"
-      }.also { add(it) }
-      if (loc.language !in this) add(loc.language)
+    else listOf(Locale.getDefault())).forEach {
+      with(it) {
+        if (country.isNullOrBlank()) add(language)
+        else add("${language}_${country}").also { if (language !in this@buildList) add(language) }
+      }
     }
   }
 
