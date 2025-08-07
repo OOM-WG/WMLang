@@ -58,44 +58,42 @@ class MLangPlugin : Plugin<Project> {
               target: MutableMap<String, FVVV>,
               path: List<String> = emptyList(),
               indentLevel: Int = 1,
-            ): Unit = with(target) {
-              forEach { (k, v) ->
-                val indentStr = " ".repeat(indentLevel * 4)
-                if (v.sub.isEmpty()) {
-                  val na = buildList {
-                    appendLine("${indentStr}private val _$k by lazy { MLangBase(\"$v\", mapOf(${
-                      tag2FVV.mapNotNull { (tag, fvv) ->
-                        path.fold(
-                          fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
-                          .also { if (it == null) add(tag) }
-                      }.joinToString(", ")
-                    })) }")
-                  }.joinToString(", ")
-                  if (na.isNotEmpty()) println(path.joinToString(".") + ".$k NA: $na")
-                  val tip = v.string.replace("(?<!^)\\\\n(?!$)".toRegex()) {
-                    "\n$indentStr *\n$indentStr * "
-                  }
-                  if (ext.base!!) {
-                    appendLine("$indentStr/** $tip")
-                    appendLine("$indentStr * @suppress compose")
-                    if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
-                    appendLine("$indentStr **/")
-                    appendLine($$"$${indentStr}val $$k get() = \"$_$$k\"")
-                  }
-                  if (ext.compose!!) {
-                    appendLine("$indentStr/** $tip")
-                    appendLine("$indentStr * @suppress non-compose")
-                    if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
-                    appendLine("$indentStr **/")
-                    appendLine("$indentStr@Composable")
-                    appendLine(
-                      $$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { takeIf { args.isEmpty() } ?: format(*args) })}\"")
-                  }
-                } else {
-                  appendLine("${indentStr}object $k {")
-                  runWrite(v.sub, path + k, indentLevel + 1)
-                  appendLine("$indentStr}")
+            ): Unit = target.forEach { (k, v) ->
+              val indentStr = " ".repeat(indentLevel * 4)
+              if (v.sub.isEmpty()) {
+                val na = buildList {
+                  appendLine("${indentStr}private val _$k by lazy { MLangBase(\"$v\", mapOf(${
+                    tag2FVV.mapNotNull { (tag, fvv) ->
+                      path.fold(
+                        fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
+                        .also { if (it == null) add(tag) }
+                    }.joinToString(", ")
+                  })) }")
+                }.joinToString(", ")
+                if (na.isNotEmpty()) println(path.joinToString(".") + ".$k NA: $na")
+                val tip = v.string.replace("(?<!^)\\\\n(?!$)".toRegex()) {
+                  "\n$indentStr *\n$indentStr * "
                 }
+                if (ext.base!!) {
+                  appendLine("$indentStr/** $tip")
+                  appendLine("$indentStr * @suppress compose")
+                  if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
+                  appendLine("$indentStr **/")
+                  appendLine($$"$${indentStr}val $$k get() = \"$_$$k\"")
+                }
+                if (ext.compose!!) {
+                  appendLine("$indentStr/** $tip")
+                  appendLine("$indentStr * @suppress non-compose")
+                  if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
+                  appendLine("$indentStr **/")
+                  appendLine("$indentStr@Composable")
+                  appendLine(
+                    $$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { takeIf { args.isEmpty() } ?: format(*args) })}\"")
+                }
+              } else {
+                appendLine("${indentStr}object $k {")
+                runWrite(v.sub, path + k, indentLevel + 1)
+                appendLine("$indentStr}")
               }
             }
             runWrite(tag2FVV[ext.baseLang!!]!!.sub)
