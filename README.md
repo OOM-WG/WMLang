@@ -72,7 +72,7 @@ object MLang {
      * @suppress non-compose
      **/
     @Composable
-    fun Hello(vararg args: Any?) = "${PanguText.format(_Hello.get().format(*args))}"
+    fun Hello(vararg args: Any?) = "${PanguText.format(_Hello.get().run { takeIf { args.isEmpty() } ?: format(*args) })}"
     object Home {
         private val _Welcome by lazy { MLangBase("欢迎%s", mapOf("zh" to "欢迎%s")) }
         /** 欢迎%s
@@ -85,7 +85,7 @@ object MLang {
          * NA: en
          **/
         @Composable
-        fun Welcome(vararg args: Any?) = "${PanguText.format(_Welcome.get().format(*args))}"
+        fun Welcome(vararg args: Any?) = "${PanguText.format(_Welcome.get().run { takeIf { args.isEmpty() } ?: format(*args) })}"
     }
 }
 ```
