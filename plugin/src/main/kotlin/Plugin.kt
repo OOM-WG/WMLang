@@ -1,9 +1,9 @@
 package dev.oom_wg.purejoy.mlang
 
 import com.android.build.gradle.AppExtension
-import `in`.sakit.fvv.FVVV
 import org.gradle.api.*
 import org.gradle.api.plugins.JavaPlugin
+import ren.shiror.fvv.FVVV
 import java.io.File
 
 open class MLangExtension {

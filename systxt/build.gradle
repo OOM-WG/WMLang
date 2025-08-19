@@ -63,14 +63,14 @@ afterEvaluate {
                     developers {
                         developer {
                             id.set("oom-wg")
-                            name.set("OOM. WG.")
+                            name.set("O.O.M. W.G.")
                             email.set("oom@200ok.work")
                             url.set("https://oom-wg.dev")
                         }
                     }
 
                     organization {
-                        name.set("OOM. WG.")
+                        name.set("O.O.M. W.G.")
                         url.set("https://oom-wg.dev")
                     }
 
