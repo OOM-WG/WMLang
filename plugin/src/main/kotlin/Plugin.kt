@@ -62,7 +62,7 @@ class MLangPlugin : Plugin<Project> {
               val indentStr = " ".repeat(indentLevel * 4)
               if (v.sub.isEmpty()) {
                 val na = buildList {
-                  appendLine("${indentStr}private val _$k by lazy { MLangBase(\"$v\", mapOf(${
+                  appendLine("${indentStr}private val `_$k` by lazy { MLangBase(\"$v\", mapOf(${
                     tag2FVV.mapNotNull { (tag, fvv) ->
                       path.fold(
                         fvv) { current, key -> current[key] }[k].value?.let { "\"$tag\" to \"$it\"" }
@@ -79,7 +79,7 @@ class MLangPlugin : Plugin<Project> {
                   appendLine("$indentStr * @suppress compose")
                   if (na.isNotEmpty()) appendLine("$indentStr * NA: $na")
                   appendLine("$indentStr **/")
-                  appendLine($$"$${indentStr}val $$k get() = \"$_$$k\"")
+                  appendLine($$"$${indentStr}val `$$k` get() = \"$_$$k\"")
                 }
                 if (ext.compose!!) {
                   appendLine("$indentStr/** $tip")
@@ -88,10 +88,10 @@ class MLangPlugin : Plugin<Project> {
                   appendLine("$indentStr **/")
                   appendLine("$indentStr@Composable")
                   appendLine(
-                    $$"$${indentStr}fun $$k(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { takeIf { args.isEmpty() } ?: format(*args) })}\"")
+                    $$"$${indentStr}fun `$$k`(vararg args: Any?) = \"${PanguText.format(_$$k.get().run { takeIf { args.isEmpty() } ?: format(*args) })}\"")
                 }
               } else {
-                appendLine("${indentStr}object $k {")
+                appendLine("${indentStr}object `$k` {")
                 runWrite(v.sub, path + k, indentLevel + 1)
                 appendLine("$indentStr}")
               }
