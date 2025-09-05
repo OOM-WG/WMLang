@@ -8,6 +8,7 @@ pluginManagement {
     }
 }
 
+// noinspection GradleDynamicVersion
 plugins {
     // noinspection AndroidGradlePluginVersion
     id 'com.android.library' version "8.11.0" apply false
