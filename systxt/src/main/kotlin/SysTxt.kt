@@ -10,13 +10,13 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun Unknown() = LocalContext.current.run {
-  remember(LocalConfiguration.current) { getString(android.R.string.unknownName) }
+	remember(LocalConfiguration.current) { getString(android.R.string.unknownName) }
 }
 
 @Composable
 fun Okay() =
-  LocalContext.current.run { remember(LocalConfiguration.current) { getString(android.R.string.ok) } }
+	LocalContext.current.run { remember(LocalConfiguration.current) { getString(android.R.string.ok) } }
 
 @Composable
 fun Cancel() =
-  LocalContext.current.run { remember(LocalConfiguration.current) { getString(android.R.string.cancel) } }
+	LocalContext.current.run { remember(LocalConfiguration.current) { getString(android.R.string.cancel) } }
