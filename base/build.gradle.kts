@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
 	id("com.android.library")
 	kotlin("android")
-	kotlin("plugin.compose")
 	id("maven-publish")
 }
 
