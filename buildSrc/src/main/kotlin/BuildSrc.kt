@@ -8,7 +8,7 @@ fun Project.configurePublishConfig(
 	from(components["release"])
 	groupId = "dev.oom-wg.purejoy.mlang"
 	artifactId = moduleId
-	version = "purejoy"
+	version = "-SNAPSHOT"
 
 	pom {
 		name.set("PureJoy MultiLang${if (nameExt.isNotEmpty()) " $nameExt" else ""}")
