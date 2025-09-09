@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "dev.oom-wg.purejoy.mlang"
-version = "purejoy"
+version = "-SNAPSHOT"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_11
