@@ -24,7 +24,7 @@ buildscript {
 ```groovy
 buildscript {
     dependencies {
-        classpath("dev.oom-wg.PureJoy-MultiLang:plugin:purejoy")
+        classpath("dev.oom-wg.PureJoy-MultiLang:plugin:-SNAPSHOT")
     }
 }
 ```
