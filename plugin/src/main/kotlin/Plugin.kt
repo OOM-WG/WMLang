@@ -1,6 +1,6 @@
 package dev.oom_wg.purejoy.mlang
 
-import com.android.build.gradle.AppExtension
+import com.android.build.gradle.BaseExtension
 import org.gradle.api.*
 import org.gradle.api.plugins.JavaPlugin
 import ren.shiror.fvv.FVVV
@@ -20,7 +20,7 @@ class MLangPlugin : Plugin<Project> {
 		project.dependencies.add(
 			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.PureJoy-MultiLang:base:-SNAPSHOT"
 		)
-		val android = project.extensions.getByName("android") as AppExtension
+		val android = project.extensions.getByName("android") as BaseExtension
 		project.afterEvaluate {
 			val ext = project.extensions.getByType(MLangExtension::class.java)
 
