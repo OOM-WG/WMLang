@@ -7,6 +7,7 @@ import ren.shiror.fvv.FVVV
 import java.io.File
 
 open class MLangExtension {
+	var name: String? = null
 	var configDir: String? = null
 	var baseLang: String? = null
 	var base: Boolean? = null
@@ -19,8 +20,7 @@ class MLangPlugin : Plugin<Project> {
 		project.extensions.create("MLang", MLangExtension::class.java)
 		project.pluginManager.withPlugin("com.android.application") {
 			project.dependencies.add(
-				JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-				"dev.oom-wg.PureJoy-MultiLang:base:purejoy"
+				JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.PureJoy-MultiLang:base:purejoy"
 			)
 			val android = project.extensions.getByName("android") as AppExtension
 			project.afterEvaluate {
@@ -36,6 +36,9 @@ class MLangPlugin : Plugin<Project> {
 					JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
 					"dev.oom-wg.PureJoy-MultiLang:compose:purejoy"
 				)
+				val packageName = "dev.oom_wg.purejoy${
+					ext.name?.takeIf { it.isNotEmpty() }?.let { ".`$it`" } ?: ""
+				}.mlang"
 
 				val generatedDir =
 					project.layout.buildDirectory.dir("generated/mlang/kotlin").get().asFile
@@ -53,7 +56,7 @@ class MLangPlugin : Plugin<Project> {
 					}
 				}.also { tag2FVV ->
 					buildString {
-						appendLine("package dev.oom_wg.purejoy.mlang\n")
+						appendLine("package $packageName\n")
 						if (ext.compose!!) {
 							appendLine("import androidx.compose.runtime.Composable")
 							appendLine("import com.highcapable.pangutext.android.PanguText\n")

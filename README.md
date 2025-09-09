@@ -36,6 +36,7 @@ plugins {
 }
 
 MLang {
+    name = null // 可选字符串，用于防止包名冲突
     configDir = "dir" // 存放 FVV 文本的目录路径
     baseLang = "zh" // 默认语言，例如 en 、 en_US
     base = true // 常规方式
