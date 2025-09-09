@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-	id("org.jetbrains.kotlin.jvm")
+	kotlin("jvm")
 	`java-gradle-plugin`
 	`maven-publish`
 }
@@ -14,7 +14,7 @@ java {
 	targetCompatibility = JavaVersion.VERSION_11
 }
 
-kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_11
 
 sourceSets {
 	named("main") {
