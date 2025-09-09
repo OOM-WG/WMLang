@@ -19,7 +19,6 @@ render.experimental.xml
 .idea/compiler.xml
 .idea/libraries/
 *.iws
-*.iml
 *.ipr
 out/
 !**/src/main/**/out/

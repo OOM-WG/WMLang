@@ -6,17 +6,13 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 
 @Composable
-fun Unknown() = LocalContext.current.run {
-	remember(LocalConfiguration.current) { getString(android.R.string.unknownName) }
-}
+fun Unknown() = stringResource(remember(LocalConfiguration.current) { android.R.string.unknownName })
 
 @Composable
-fun Okay() =
-	LocalContext.current.run { remember(LocalConfiguration.current) { getString(android.R.string.ok) } }
+fun Okay() = stringResource(remember(LocalConfiguration.current) { android.R.string.ok })
 
 @Composable
-fun Cancel() =
-	LocalContext.current.run { remember(LocalConfiguration.current) { getString(android.R.string.cancel) } }
+fun Cancel() = stringResource(remember(LocalConfiguration.current) { android.R.string.cancel })

@@ -20,7 +20,7 @@ class MLangPlugin : Plugin<Project> {
 		project.pluginManager.withPlugin("com.android.application") {
 			project.dependencies.add(
 				JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-				"dev.oom-wg.PureJoy-MultiLang:base:purejoy-SNAPSHOT"
+				"dev.oom-wg.PureJoy-MultiLang:base:purejoy"
 			)
 			val android = project.extensions.getByName("android") as AppExtension
 			project.afterEvaluate {
@@ -34,7 +34,7 @@ class MLangPlugin : Plugin<Project> {
 				if (ext.base!!.not() && ext.compose!!.not()) throw GradleException("Nothing to do.")
 				if (ext.compose!!) project.dependencies.add(
 					JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-					"dev.oom-wg.PureJoy-MultiLang:compose:purejoy-SNAPSHOT"
+					"dev.oom-wg.PureJoy-MultiLang:compose:purejoy"
 				)
 
 				val generatedDir =

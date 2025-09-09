@@ -11,16 +11,20 @@
 确保`repositories`内有<https://jitpack.io>
 
 ```groovy
-repositories {
-    maven { url 'https://jitpack.io' }
+buildscript {
+    repositories {
+        maven { url "https://jitpack.io" } // maven("https://jitpack.io")
+    }
 }
 ```
 
 添加欢愉多语言的 Gradle 插件
 
 ```groovy
-dependencies {
-    classpath 'dev.oom-wg.PureJoy-MultiLang:dev.oom-wg.purejoy.mlang.gradle.plugin:purejoy-SNAPSHOT'
+buildscript {
+    dependencies {
+        classpath("dev.oom-wg.PureJoy-MultiLang:plugin:purejoy")
+    }
 }
 ```
 
@@ -28,14 +32,14 @@ dependencies {
 
 ```groovy
 plugins {
-    id 'dev.oom-wg.purejoy.mlang'
+    id("dev.oom-wg.purejoy.mlang")
 }
 
 MLang {
-    configDir 'dir' // 存放 FVV 文本的目录路径
-    baseLang 'zh' // 默认语言，例如 en 、 en_US
-    base true // 常规方式
-    compose true // Jetpack Compose 方式
+    configDir = "dir" // 存放 FVV 文本的目录路径
+    baseLang = "zh" // 默认语言，例如 en 、 en_US
+    base = true // 常规方式
+    compose = true // Jetpack Compose 方式
     // 常规方式 与 Jetpack Compose 方式 必须启用其中至少一种
 }
 ```

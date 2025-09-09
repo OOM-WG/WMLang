@@ -1,11 +1,20 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	id("org.jetbrains.kotlin.jvm")
-	id("java-gradle-plugin")
-	id("maven-publish")
+	`java-gradle-plugin`
+	`maven-publish`
 }
 
 group = "dev.oom-wg.purejoy.mlang"
-version = "main"
+version = "purejoy"
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+}
+
+kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
 sourceSets {
 	named("main") {
@@ -22,6 +31,8 @@ dependencies {
 }
 
 gradlePlugin {
+	website = "https://github.com/OOM-WG/PureJoy-MultiLang"
+	vcsUrl = "https://github.com/OOM-WG/PureJoy-MultiLang"
 	plugins {
 		create("MLang") {
 			id = "dev.oom-wg.purejoy.mlang"
