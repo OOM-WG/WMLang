@@ -17,6 +17,11 @@ buildscript {
         maven { url "https://jitpack.io" } // maven("https://jitpack.io")
     }
 }
+dependencyResolutionManagement {
+    repositories {
+        maven { url "https://jitpack.io" } // maven("https://jitpack.io")
+    }
+}
 ```
 
 添加欢愉多语言的 Gradle 插件
