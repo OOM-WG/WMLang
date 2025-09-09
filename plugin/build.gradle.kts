@@ -27,6 +27,7 @@ dependencies {
 	compileOnly(gradleApi())
 	compileOnly(localGroovy())
 
+	compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:+")
 	compileOnly("com.android.tools.build:gradle:+")
 }
 
