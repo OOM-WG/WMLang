@@ -56,8 +56,9 @@ class MLangPlugin : Plugin<Project> {
 					appendLine("package $packageName\n")
 					if (ext.compose!!) {
 						appendLine("import androidx.compose.runtime.Composable")
-						appendLine("import com.highcapable.pangutext.android.PanguText\n")
+						appendLine("import com.highcapable.pangutext.android.PanguText")
 					}
+					appendLine("import dev.oom_wg.purejoy.mlang.MLangBase\n")
 					appendLine("object MLang {")
 					fun runWrite(
 						target: MutableMap<String, FVVV>,
