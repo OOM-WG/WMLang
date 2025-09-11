@@ -17,7 +17,6 @@ android {
 		minSdk = 16
 		consumerProguardFiles("consumer-rules.pro")
 	}
-	sourceSets.getByName("main").java.srcDir("src/main/kotlin")
 	buildTypes {
 		release {
 			isMinifyEnabled = false

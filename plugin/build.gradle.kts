@@ -16,12 +16,6 @@ java {
 
 kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_11
 
-sourceSets {
-	named("main") {
-		java.srcDirs("src/main/kotlin", "../deps/fvv/kotlin")
-	}
-}
-
 // noinspection GradleDynamicVersion
 dependencies {
 	compileOnly(gradleApi())
@@ -29,6 +23,8 @@ dependencies {
 
 	compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:+")
 	compileOnly("com.android.tools.build:gradle:+")
+
+	implementation("dev.oom-wg.FVV:FVV:-SNAPSHOT")
 }
 
 gradlePlugin {
