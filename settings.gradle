@@ -1,30 +1,30 @@
 pluginManagement {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        gradlePluginPortal()
-    }
+	repositories {
+		mavenLocal()
+		google()
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
+		gradlePluginPortal()
+	}
 }
 
 // noinspection GradleDynamicVersion
 plugins {
-    // noinspection AndroidGradlePluginVersion
-    id 'com.android.library' version '8.12.0' apply false
-    id 'org.jetbrains.kotlin.android' version '+' apply false
-    id 'org.jetbrains.kotlin.plugin.compose' version '+' apply false
-    id 'org.jetbrains.kotlin.multiplatform' version '+' apply false
+	// noinspection AndroidGradlePluginVersion
+	id 'com.android.library' version '8.12.0' apply false
+	id 'org.jetbrains.kotlin.android' version '+' apply false
+	id 'org.jetbrains.kotlin.plugin.compose' version '+' apply false
+	id 'org.jetbrains.kotlin.multiplatform' version '+' apply false
 }
 
 dependencyResolutionManagement {
-    repositories {
-        mavenLocal()
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        gradlePluginPortal()
-    }
+	repositories {
+		mavenLocal()
+		google()
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
+		gradlePluginPortal()
+	}
 }
 
 rootProject.name = 'PureJoy MultiLang'
