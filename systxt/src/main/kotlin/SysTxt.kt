@@ -1,4 +1,4 @@
-@file:SuppressLint("ComposableNaming") @file:Suppress("unused")
+@file:Suppress("PackageDirectoryMismatch", "unused") @file:SuppressLint("ComposableNaming")
 
 package dev.oom_wg.purejoy.mlang.systxt
 

@@ -1,3 +1,5 @@
+@file:Suppress("PackageDirectoryMismatch", "unused")
+
 package dev.oom_wg.purejoy.mlang
 
 import com.android.build.gradle.BaseExtension
@@ -14,7 +16,6 @@ open class MLangExtension {
 	var compose: Boolean? = null
 }
 
-@Suppress("unused")
 class MLangPlugin : Plugin<Project> {
 	fun setupMLang(project: Project) {
 		project.dependencies.add(
@@ -53,6 +54,7 @@ class MLangPlugin : Plugin<Project> {
 				}
 			}.also { tag2FVV ->
 				buildString {
+					appendLine("@file:Suppress(\"PackageDirectoryMismatch\", \"PackageName\", \"ClassName\", \"unused\")\n")
 					appendLine("package $packageName\n")
 					if (ext.compose!!) {
 						appendLine("import androidx.compose.runtime.Composable")
