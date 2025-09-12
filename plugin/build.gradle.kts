@@ -18,13 +18,13 @@ kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_11
 
 // noinspection GradleDynamicVersion
 dependencies {
+	implementation("dev.oom-wg.FVV:FVV:-SNAPSHOT")
+
 	compileOnly(gradleApi())
 	compileOnly(localGroovy())
 
 	compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:+")
 	compileOnly("com.android.tools.build:gradle:+")
-
-	implementation("dev.oom-wg.FVV:FVV:-SNAPSHOT")
 }
 
 gradlePlugin {
