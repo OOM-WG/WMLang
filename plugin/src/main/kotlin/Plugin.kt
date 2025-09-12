@@ -54,7 +54,7 @@ class MLangPlugin : Plugin<Project> {
 				}
 			}.also { tag2FVV ->
 				buildString {
-					appendLine("@file:Suppress(\"PackageDirectoryMismatch\", \"PackageName\", \"ClassName\", \"unused\")\n")
+					appendLine("@file:Suppress(\"PackageDirectoryMismatch\", \"PackageName\", \"ClassName\", \"ObjectPropertyName\", \"RemoveRedundantBackticks\", \"NonAsciiCharacters\", \"unused\")\n")
 					appendLine("package $packageName\n")
 					if (ext.compose!!) {
 						appendLine("import androidx.compose.runtime.Composable")
