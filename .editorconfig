@@ -6,6 +6,10 @@ max_line_length = 106
 trim_trailing_whitespace = true
 ij_continuation_indent_size = 8
 
+[{*.yml,*.yaml}]
+indent_size = 2
+indent_style = space
+
 [{*.kt,*.kts}]
 ij_kotlin_align_in_columns_case_branch = true
 ij_kotlin_align_multiline_extends_list = true
