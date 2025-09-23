@@ -10,6 +10,10 @@ ij_continuation_indent_size = 8
 indent_size = 2
 indent_style = space
 
+[{*.md,*.mkd,*.mdx}]
+indent_size = 2
+indent_style = space
+
 [{*.kt,*.kts}]
 ij_kotlin_align_in_columns_case_branch = true
 ij_kotlin_align_multiline_extends_list = true
