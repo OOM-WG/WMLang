@@ -50,7 +50,7 @@ class MLangPlugin : Plugin<Project> {
 			}.associate { dir ->
 				dir.name to FVVV().apply {
 					dir.walkTopDown().filter { it.isFile && it.extension == "fvv" }
-						.forEach { addFromString(it.readText()) }
+						.forEach { parse(it.readText()) }
 				}
 			}.also { tag2FVV ->
 				buildString {
