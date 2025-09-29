@@ -12,6 +12,7 @@ kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 android {
 	namespace = "dev.oom_wg.purejoy.mlang.systxt"
 	compileSdk = 36
+	buildToolsVersion = "36.1.0"
 
 	defaultConfig {
 		minSdk = 16
