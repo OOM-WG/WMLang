@@ -1,7 +1,7 @@
 # [PureJoy - Multi Language (欢愉多语言框架)](https://app.niggergo.work/docs/purejoy/mlang)
 
 > [!TIP]
-> 此项目隶属于欢律遗愉系列，是 [SSU](https://ssu.oom-wg.dev) 的衍生项目
+> 此项目隶属于[欢律遗愉系列](https://oom-wg.dev/projects)，是 [SSU](https://ssu.oom-wg.dev) 的衍生项目
 
 欢愉多语言是基于 `Kotlin` 开发的支持 **Jetpack Compose** 与常规方式的多语言框架，
 其特点是基于 [`FVV`](https://github.com/OOM-WG/FVV) 而不是传统的 xml 存放文本，并且实现了通过 Gradle 插件自动生成 Kotlin 文件，
