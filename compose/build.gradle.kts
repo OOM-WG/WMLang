@@ -45,7 +45,7 @@ android {
 dependencies {
 	implementation(project(":base"))
 
-	implementation(platform("androidx.compose:compose-bom-alpha:+"))
+	implementation(platform("androidx.compose:compose-bom:+"))
 	implementation("androidx.compose.ui:ui")
 	implementation("androidx.compose.runtime:runtime")
 
