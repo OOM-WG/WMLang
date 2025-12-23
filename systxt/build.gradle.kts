@@ -1,3 +1,5 @@
+import com.palantir.gradle.gitversion.VersionDetails
+import groovy.lang.Closure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -5,6 +7,7 @@ plugins {
 	kotlin("android")
 	kotlin("plugin.compose")
 	`maven-publish`
+	id("com.palantir.git-version")
 }
 
 kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
@@ -36,7 +39,7 @@ android {
 	publishing {
 		singleVariant("release") {
 			withSourcesJar()
-			withJavadocJar()
+			// withJavadocJar()
 		}
 	}
 }
@@ -51,8 +54,9 @@ dependencies {
 afterEvaluate {
 	publishing {
 		publications {
+			val versionDetails: Closure<VersionDetails> by extra
 			create<MavenPublication>(
-				"release", configurePublishConfig("systxt", "for System Text")
+				"release", configurePublishConfig(versionDetails().lastTag, "systxt", "for System Text")
 			)
 		}
 		repositories {

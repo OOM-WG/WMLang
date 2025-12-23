@@ -3,6 +3,7 @@
 package dev.oom_wg.purejoy.mlang
 
 import com.android.build.gradle.BaseExtension
+import dev.oom_wg.purejoy.mlang.plugin.BuildConfig
 import org.gradle.api.*
 import org.gradle.api.plugins.JavaPlugin
 import ren.shiror.fvv.FVVV
@@ -19,7 +20,7 @@ open class MLangExtension {
 class MLangPlugin : Plugin<Project> {
 	fun setupMLang(project: Project) {
 		project.dependencies.add(
-			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.PureJoy-MultiLang:base:-SNAPSHOT"
+			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.PureJoy-MultiLang:base:${BuildConfig.VERSION}"
 		)
 		val android = project.extensions.getByName("android") as BaseExtension
 		project.afterEvaluate {
@@ -34,7 +35,7 @@ class MLangPlugin : Plugin<Project> {
 			if (ext.base!!.not() && ext.compose!!.not()) throw GradleException("Nothing to do.")
 			if (ext.compose!!) project.dependencies.add(
 				JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-				"dev.oom-wg.PureJoy-MultiLang:compose:-SNAPSHOT"
+				"dev.oom-wg.PureJoy-MultiLang:compose:${BuildConfig.VERSION}"
 			)
 
 			val packageName =

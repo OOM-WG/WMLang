@@ -3,12 +3,12 @@ import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.get
 
 fun Project.configurePublishConfig(
-	moduleId: String, nameExt: String = ""
+	moduleVersion: String?, moduleId: String, nameExt: String = ""
 ): MavenPublication.() -> Unit = {
 	from(components["release"])
 	groupId = "dev.oom-wg.purejoy.mlang"
 	artifactId = moduleId
-	version = "-SNAPSHOT"
+	version = moduleVersion ?: "0.1"
 
 	pom {
 		name.set("PureJoy MultiLang${if (nameExt.isNotEmpty()) " $nameExt" else ""}")
