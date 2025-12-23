@@ -61,7 +61,7 @@ afterEvaluate {
 			val versionDetails: Closure<VersionDetails> by extra
 			create<MavenPublication>(
 				"release",
-				configurePublishConfig("compose", versionDetails().lastTag, "for Jetpack Compose")
+				configurePublishConfig(versionDetails().lastTag, "compose", "for Jetpack Compose")
 			)
 		}
 		repositories {
