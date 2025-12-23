@@ -20,7 +20,7 @@ open class MLangExtension {
 class MLangPlugin : Plugin<Project> {
 	fun setupMLang(project: Project) {
 		project.dependencies.add(
-			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.PureJoy-MultiLang:base:${BuildConfig.VERSION}"
+			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.purejoy.mlang:base:${BuildConfig.VERSION}"
 		)
 		val android = project.extensions.getByName("android") as BaseExtension
 		project.afterEvaluate {
@@ -35,7 +35,7 @@ class MLangPlugin : Plugin<Project> {
 			if (ext.base!!.not() && ext.compose!!.not()) throw GradleException("Nothing to do.")
 			if (ext.compose!!) project.dependencies.add(
 				JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-				"dev.oom-wg.PureJoy-MultiLang:compose:${BuildConfig.VERSION}"
+				"dev.oom-wg.purejoy.mlang:compose:${BuildConfig.VERSION}"
 			)
 
 			val packageName =
