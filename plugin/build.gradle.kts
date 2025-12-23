@@ -27,7 +27,7 @@ kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_11
 
 // noinspection GradleDynamicVersion
 dependencies {
-	implementation("dev.oom-wg.FVV:FVV:1.+")
+	implementation("ren.shiror.fvv:core:1.+")
 
 	compileOnly(gradleApi())
 	compileOnly(localGroovy())
