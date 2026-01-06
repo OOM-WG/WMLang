@@ -26,6 +26,8 @@ style:
     active: false
   MaxLineLength:
     active: false
+  ReturnCount:
+    active: false
   ThrowsCount:
     active: false
   WildcardImport:
