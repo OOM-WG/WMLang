@@ -1,8 +1,8 @@
 pluginManagement {
 	repositories {
 		mavenLocal()
-		google()
 		mavenCentral()
+		google()
 		gradlePluginPortal()
 	}
 }
@@ -10,29 +10,29 @@ pluginManagement {
 // noinspection GradleDynamicVersion
 plugins {
 	// noinspection AndroidGradlePluginVersion
-	id 'com.android.library' version '8.12.0' apply false
-	id 'org.jetbrains.kotlin.android' version '+' apply false
+	id 'com.android.kotlin.multiplatform.library' version '8.12.0' apply false
+	id 'org.jetbrains.kotlin.multiplatform' version '+' apply false
 	id 'org.jetbrains.kotlin.plugin.compose' version '+' apply false
-	// id 'org.jetbrains.kotlin.multiplatform' version '+' apply false
+	id 'org.jetbrains.compose' version '+' apply false
 	id 'com.palantir.git-version' version '+' apply false
 }
 
 dependencyResolutionManagement {
 	repositories {
 		mavenLocal()
-		google()
 		mavenCentral()
+		google()
 		maven {
 			url 'https://oom-maven.sawahara.host'
 			content {
-				includeGroupByRegex 'ren\\.shiror.*'
-				includeGroupByRegex 'dev\\.oom-wg.*'
+				includeGroupAndSubgroups 'ren.shiror'
+				includeGroupAndSubgroups 'dev.oom-wg'
 			}
 		}
 		gradlePluginPortal()
 	}
 }
 
-rootProject.name = 'PureJoy MultiLang'
+rootProject.name = 'PureJoy FYL'
 
-include ':base', ':compose', ':systxt', ':plugin'
+include ':fytxt:plugin', ':fytxt:runtime:common', ':fytxt:runtime:compose', ':fytxt:runtime:systxt'

@@ -4,8 +4,12 @@ plugins {
 
 repositories {
 	mavenLocal()
-	google()
 	mavenCentral()
-	maven("https://jitpack.io")
+	google()
 	gradlePluginPortal()
+}
+
+//noinspection GradleDynamicVersion
+dependencies {
+	implementation("com.palantir.gradle.gitversion:gradle-git-version:+")
 }
