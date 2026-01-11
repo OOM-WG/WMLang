@@ -16,9 +16,9 @@ kotlin {
 
 	androidLibrary {
 		namespace = "dev.oom_wg.purejoy.fyl.fytxt.systxt"
-		compileSdk = gropify.config.compileSdk
-		minSdk = gropify.config.minSdk
-		buildToolsVersion = gropify.config.buildToolsVersion
+		compileSdk = 36
+		minSdk = 1
+		buildToolsVersion = "36.1.0"
 
 		compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
