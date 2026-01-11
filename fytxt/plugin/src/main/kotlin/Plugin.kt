@@ -171,7 +171,7 @@ private fun setup(project: Project) {
 							if (naTags.isNotEmpty()) appendLine("*@suppress $naTags")
 							appendLine("*/")
 							appendLine("@Composable")
-							appendLine("fun`$key`(vararg args:Any?)=FYTxtConfig.obsLoc{remember(FYTxtConfig.activeTags.collectAsState().value,FYTxtConfig.activeGroup.collectAsState().value,*args){`$key`.fmt(args)}}")
+							appendLine("fun`$key`(vararg args:Any?)=FYTxtConfig.observe{`$key`.fmt(args)}")
 						}
 					} else {
 						appendLine("object`$key`{init{`${ext.objectName.get()}Groups`}")
