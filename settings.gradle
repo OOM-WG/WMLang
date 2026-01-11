@@ -15,6 +15,7 @@ plugins {
 	id 'org.jetbrains.kotlin.plugin.compose' version '+' apply false
 	id 'org.jetbrains.compose' version '+' apply false
 	id 'com.palantir.git-version' version '+' apply false
+	id 'com.highcapable.gropify' version '+'
 }
 
 dependencyResolutionManagement {
@@ -34,5 +35,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = 'PureJoy FYL'
+
+gropify {
+	enabled true
+	debugMode false
+}
 
 include ':fytxt:plugin', ':fytxt:runtime:common', ':fytxt:runtime:compose', ':fytxt:runtime:systxt'
