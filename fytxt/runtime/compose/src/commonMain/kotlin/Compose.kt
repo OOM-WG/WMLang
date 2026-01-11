@@ -1,8 +1,9 @@
 @file:Suppress("PackageDirectoryMismatch", "unused")
 
-package dev.oom_wg.purejoy.fyl.fytxt
+package dev.oom_wg.purejoy.fyl.fytxt.compose
 
 import androidx.compose.runtime.*
+import dev.oom_wg.purejoy.fyl.fytxt.*
 
 @Stable
 class FYTxtState(val tags: State<List<FYTxtTag>>, val group: State<FYTxtGroup?>)
@@ -18,13 +19,4 @@ fun FYTxtProvider(content: @Composable () -> Unit) {
 	val fytxtState = remember(tagsState, groupState) { FYTxtState(tagsState, groupState) }
 
 	CompositionLocalProvider(LocalFYTxtState provides fytxtState) { content() }
-}
-
-@Suppress("UnusedReceiverParameter")
-@Composable
-inline fun <T> FYTxtConfig.observe(crossinline block: () -> T): T {
-	val state = LocalFYTxtState.current
-	val tags by state.tags
-	val group by state.group
-	return remember(tags, group) { block() }
 }
