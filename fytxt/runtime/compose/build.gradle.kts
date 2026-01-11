@@ -31,7 +31,7 @@ kotlin {
 		}
 	}
 
-	jvm { compilerOptions.jvmTarget = JvmTarget.JVM_1_8 }
+	jvm { compilerOptions.jvmTarget = JvmTarget.JVM_11 }
 
 	iosArm64()
 	iosX64()
