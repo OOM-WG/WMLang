@@ -1,8 +1,8 @@
 * text=auto
 
-*.md text eol=lf
-*.mkd text eol=lf
-*.mdx text eol=lf
+*.md text eol=lf linguist-documentation
+*.mkd text eol=lf linguist-documentation
+*.mdx text eol=lf linguist-documentation
 
 *.sh text eol=lf
 *.rc text eol=lf
