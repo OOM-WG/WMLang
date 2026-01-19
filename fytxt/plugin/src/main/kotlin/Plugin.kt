@@ -101,6 +101,7 @@ private fun setup(project: Project) {
 			appendLine("import dev.oom_wg.purejoy.fyl.fytxt.FYTxtTag")
 			appendLine("import dev.oom_wg.purejoy.fyl.fytxt.FYTxtConfig")
 			if (ext.composeGen.getOrElse(false)) {
+				appendLine("import dev.oom_wg.purejoy.fyl.fytxt.compose.observe")
 				appendLine("import dev.oom_wg.purejoy.fyl.fytxt.strfmt.fmt")
 				appendLine()
 				appendLine("import androidx.compose.runtime.Composable")

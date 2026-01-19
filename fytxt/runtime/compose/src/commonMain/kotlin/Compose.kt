@@ -20,3 +20,12 @@ fun FYTxtProvider(content: @Composable () -> Unit) {
 
 	CompositionLocalProvider(LocalFYTxtState provides fytxtState) { content() }
 }
+
+@Suppress("UnusedReceiverParameter")
+@Composable
+inline fun <T> FYTxtConfig.observe(crossinline block: () -> T): T {
+	val state = LocalFYTxtState.current
+	val tags by state.tags
+	val group by state.group
+	return remember(tags, group) { block() }
+}
