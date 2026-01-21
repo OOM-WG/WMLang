@@ -10,7 +10,7 @@ pluginManagement {
 // noinspection GradleDynamicVersion
 plugins {
 	// noinspection AndroidGradlePluginVersion
-	id 'com.android.kotlin.multiplatform.library' version '8.12.0' apply false
+	id 'com.android.kotlin.multiplatform.library' version '+' apply false
 	id 'org.jetbrains.kotlin.multiplatform' version '+' apply false
 	id 'org.jetbrains.kotlin.plugin.compose' version '+' apply false
 	id 'org.jetbrains.compose' version '+' apply false
