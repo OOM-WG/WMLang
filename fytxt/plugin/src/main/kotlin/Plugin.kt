@@ -46,16 +46,14 @@ const val suppress =
 	"@file:Suppress(\"PackageDirectoryMismatch\", \"PackageName\", \"ClassName\", \"ObjectPropertyName\", \"PropertyName\", \"FunctionName\", \"NonAsciiCharacters\", \"RemoveRedundantBackticks\", \"REDUNDANT_ELSE_IN_WHEN\", \"UnusedExpression\", \"unused\")\n"
 
 private fun setup(project: Project) {
-	val kotlin =
-		runCatching { project.extensions.findByType(KotlinMultiplatformExtension::class.java) }.getOrNull()
-	val android = runCatching { project.extensions.findByType(CommonExtension::class.java) }.getOrNull()
-		?.takeIf { kotlin == null }
+	val kotlin = runCatching { project.extensions.findByType(KotlinMultiplatformExtension::class.java) }.getOrNull()
+	val android =
+		runCatching { project.extensions.findByType(CommonExtension::class.java) }.getOrNull()?.takeIf { kotlin == null }
 	kotlin?.apply {
 		sourceSets.commonMain.get()
 			.dependencies { implementation("dev.oom-wg.purejoy.fyl.fytxt:common:${BuildConfig.VERSION}") }
 	} ?: project.dependencies.add(
-		JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-		"dev.oom-wg.purejoy.fyl.fytxt:common:${BuildConfig.VERSION}"
+		JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.purejoy.fyl.fytxt:common:${BuildConfig.VERSION}"
 	)
 	project.afterEvaluate {
 		val ext = project.extensions.getByType(FYTxtExtension::class.java)
@@ -69,8 +67,7 @@ private fun setup(project: Project) {
 			sourceSets.commonMain.get()
 				.dependencies { implementation("dev.oom-wg.purejoy.fyl.fytxt:compose:${BuildConfig.VERSION}") }
 		} ?: project.dependencies.add(
-			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
-			"dev.oom-wg.purejoy.fyl.fytxt:compose:${BuildConfig.VERSION}"
+			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.purejoy.fyl.fytxt:compose:${BuildConfig.VERSION}"
 		)
 
 		val srcRootDir = project.layout.buildDirectory.dir("generated/fytxt/kotlin").get().asFile
@@ -110,8 +107,7 @@ private fun setup(project: Project) {
 			}
 			appendLine()
 			appendLine("${if (ext.internalClass.get()) "internal " else ""}object`${ext.objectName.get()}`{init{`${ext.objectName.get()}Groups`}")
-			fun countTexts(node: FVVV): Int =
-				if (node.`is`<String>()) 1 else node.nodes.values.sumOf { countTexts(it) }
+			fun countTexts(node: FVVV): Int = if (node.`is`<String>()) 1 else node.nodes.values.sumOf { countTexts(it) }
 
 			val totalTexts = countTexts(commonLang.second[ext.defaultLang.get()]!!).toDouble()
 			appendLine(
@@ -141,8 +137,8 @@ private fun setup(project: Project) {
 
 						val commonTexts = idxVariants[commonLang.first]!!
 						val naTags = langs.mapNotNull { (groupName, _) ->
-							langTags.filter { tag -> idxVariants[groupName]!![tag] == null }
-								.joinToString(", ").takeIf { it.isNotEmpty() }?.let { "$groupName: $it" }
+							langTags.filter { tag -> idxVariants[groupName]!![tag] == null }.joinToString(", ")
+								.takeIf { it.isNotEmpty() }?.let { "$groupName: $it" }
 						}.joinToString(" | ")
 						if (naTags.isNotEmpty()) println(path.joinToString(".") + ".$key NA:  $naTags")
 						val defaultText = commonTexts[ext.defaultLang.get()]!!

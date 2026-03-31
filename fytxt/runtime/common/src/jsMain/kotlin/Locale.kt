@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import org.w3c.dom.events.EventListener
 
 internal actual val platformLocaleProvider = object : LocaleProvider {
-	override fun getLocales() = window.navigator.languages.ifEmpty { arrayOf(window.navigator.language) }
-		.map { it.replace('-', '_').uppercase() }
+	override fun getLocales() =
+		window.navigator.languages.ifEmpty { arrayOf(window.navigator.language) }.map { it.replace('-', '_').uppercase() }
 
 	override val localeUpdates = callbackFlow {
 		trySend(getLocales())
