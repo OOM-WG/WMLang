@@ -1,5 +1,12 @@
 * text=auto
 
+*.gradle linguist-vendored
+*.gradle.kts linguist-vendored
+gradlew linguist-vendored
+gradlew.bat linguist-vendored
+amper linguist-vendored
+amper.bat linguist-vendored
+
 *.md text eol=lf linguist-documentation
 *.mkd text eol=lf linguist-documentation
 *.mdx text eol=lf linguist-documentation
