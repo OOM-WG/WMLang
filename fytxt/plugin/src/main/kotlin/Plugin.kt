@@ -45,16 +45,27 @@ class FYTxtPlugin : Plugin<Project> {
 const val suppress =
 	"@file:Suppress(\"PackageDirectoryMismatch\", \"PackageName\", \"ClassName\", \"ObjectPropertyName\", \"PropertyName\", \"FunctionName\", \"NonAsciiCharacters\", \"RemoveRedundantBackticks\", \"REDUNDANT_ELSE_IN_WHEN\", \"UnusedExpression\", \"unused\")\n"
 
+const val fytxtGroup = "dev.oom-wg.purejoy.fyl.fytxt"
+
 private fun setup(project: Project) {
+	val bom = project.dependencies.platform("$fytxtGroup:bom:${BuildConfig.VERSION}")
+	val core = "$fytxtGroup:core"
+	val compose = "$fytxtGroup:compose"
+
 	val kotlin = runCatching { project.extensions.findByType(KotlinMultiplatformExtension::class.java) }.getOrNull()
 	val android =
 		runCatching { project.extensions.findByType(CommonExtension::class.java) }.getOrNull()?.takeIf { kotlin == null }
+
 	kotlin?.apply {
-		sourceSets.commonMain.get()
-			.dependencies { implementation("dev.oom-wg.purejoy.fyl.fytxt:common:${BuildConfig.VERSION}") }
-	} ?: project.dependencies.add(
-		JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.purejoy.fyl.fytxt:common:${BuildConfig.VERSION}"
-	)
+		sourceSets.commonMain.get().dependencies {
+			implementation(bom)
+			implementation(core)
+		}
+	} ?: project.dependencies.apply {
+		add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, bom)
+		add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, core)
+	}
+
 	project.afterEvaluate {
 		val ext = project.extensions.getByType(FYTxtExtension::class.java)
 
@@ -64,11 +75,8 @@ private fun setup(project: Project) {
 		ext.defaultLang.set(ext.defaultLang.get().uppercase())
 
 		if (ext.composeGen.getOrElse(false)) kotlin?.apply {
-			sourceSets.commonMain.get()
-				.dependencies { implementation("dev.oom-wg.purejoy.fyl.fytxt:compose:${BuildConfig.VERSION}") }
-		} ?: project.dependencies.add(
-			JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, "dev.oom-wg.purejoy.fyl.fytxt:compose:${BuildConfig.VERSION}"
-		)
+			sourceSets.commonMain.get().dependencies { implementation(compose) }
+		} ?: project.dependencies.add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, compose)
 
 		val srcRootDir = project.layout.buildDirectory.dir("generated/fytxt/kotlin").get().asFile
 		val commonMainDir = File(srcRootDir, "commonMain/kotlin")

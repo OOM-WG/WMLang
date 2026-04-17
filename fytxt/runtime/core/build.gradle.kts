@@ -14,11 +14,11 @@ kotlin {
 	applyDefaultHierarchyTemplate()
 	withSourcesJar()
 
-	androidLibrary {
-		namespace = "dev.oom_wg.purejoy.fyl.fytxt.common"
-		compileSdk = 36
+	android {
+		namespace = "dev.oom_wg.purejoy.fyl.fytxt.core"
+		compileSdk = libs.versions.compileSdk.get().toInt()
 		minSdk = 16
-		buildToolsVersion = "36.1.0"
+		buildToolsVersion = libs.versions.buildTools.get()
 
 		compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
@@ -37,16 +37,12 @@ kotlin {
 	androidNativeX86()
 
 	iosArm64()
-	iosX64()
 	iosSimulatorArm64()
 	macosArm64()
-	macosX64()
 	tvosArm64()
-	tvosX64()
 	tvosSimulatorArm64()
 	watchosArm64()
 	watchosArm32()
-	watchosX64()
 	watchosDeviceArm64()
 	watchosSimulatorArm64()
 
@@ -58,13 +54,12 @@ kotlin {
 	js(IR) { browser() }
 	wasmJs { browser() }
 
-	// noinspection GradleDynamicVersion
 	sourceSets {
 		commonMain.dependencies {
-			implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:+")
+			implementation(libs.kotlinxCoroutines)
 		}
 		webMain.dependencies {
-			implementation("org.jetbrains.kotlinx:kotlinx-browser:+")
+			implementation(libs.kotlinxBrowser)
 		}
 	}
 }

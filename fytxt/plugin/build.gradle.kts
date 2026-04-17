@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -9,12 +7,12 @@ plugins {
 	`java-gradle-plugin`
 	`maven-publish`
 	id("com.palantir.git-version")
-	id("com.github.gmazzo.buildconfig") version "+"
+	alias(libs.plugins.buildconfig)
 }
 
-group = "dev.oom-wg.purejoy.fyl.fytxt"
 val versionDetails: Closure<VersionDetails> by extra
-version = versionDetails().lastTag ?: "0.0"
+group = "dev.oom_wg.purejoy.fyl.fytxt"
+version = versionDetails().lastTag
 
 buildConfig {
 	buildConfigField("VERSION", provider { "${project.version}" })
@@ -27,15 +25,14 @@ java {
 
 kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_11
 
-// noinspection GradleDynamicVersion
 dependencies {
-	implementation("ren.shiror.fvv:core:2.+")
+	implementation(libs.fvv)
 
 	compileOnly(gradleApi())
 	compileOnly(localGroovy())
 
-	compileOnly("com.android.tools.build:gradle:+")
-	compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:+")
+	compileOnly(libs.androidGradle)
+	compileOnly(libs.kotlinGradle)
 }
 
 gradlePlugin {

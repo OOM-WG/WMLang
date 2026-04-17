@@ -1,45 +1,58 @@
-@file:Suppress("UnstableApiUsage")
-
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-	id("com.android.kotlin.multiplatform.library")
-	kotlin("multiplatform")
+	id("com.android.library")
 	kotlin("plugin.compose")
 	`maven-publish`
 	id("com.palantir.git-version")
 }
 
-kotlin {
-	applyDefaultHierarchyTemplate()
-	withSourcesJar()
+kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
-	androidLibrary {
-		namespace = "dev.oom_wg.purejoy.fyl.fytxt.systxt"
-		compileSdk = 36
+android {
+	namespace = "dev.oom_wg.purejoy.fyl.fytxt.systxt"
+	compileSdk = libs.versions.compileSdk.get().toInt()
+	buildToolsVersion = libs.versions.buildTools.get()
+
+	defaultConfig {
 		minSdk = 1
-		buildToolsVersion = "36.1.0"
-
-		compilerOptions.jvmTarget = JvmTarget.JVM_1_8
-
-		optimization {
-			consumerKeepRules.publish = true
-			consumerKeepRules.files("consumer-rules.pro")
-			minify = false
+		consumerProguardFiles("consumer-rules.pro")
+	}
+	buildTypes {
+		release {
+			isMinifyEnabled = false
+			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 		}
 	}
-
-	// noinspection GradleDynamicVersion
-	sourceSets.androidMain.dependencies {
-		implementation(project.dependencies.platform("androidx.compose:compose-bom:+"))
-		implementation("androidx.compose.ui:ui")
-		implementation("androidx.compose.runtime:runtime")
+	compileOptions {
+		sourceCompatibility = JavaVersion.VERSION_1_8
+		targetCompatibility = JavaVersion.VERSION_1_8
 	}
+	buildFeatures {
+		buildConfig = true
+	}
+
+	publishing {
+		singleVariant("release") {
+			withSourcesJar()
+			// withJavadocJar()
+		}
+	}
+}
+
+dependencies {
+	implementation(libs.composeUi)
+	implementation(libs.composeRuntime)
 }
 
 afterEvaluate {
 	publishing {
-		publications { withType<MavenPublication>(configurePublishConfig("for Android System Text")) }
+		publications {
+			create<MavenPublication>("release") {
+				from(components["release"])
+				configurePublishConfig("for Android System Text")()
+			}
+		}
 		repositories { mavenLocal() }
 	}
 }

@@ -1,0 +1,33 @@
+[versions]
+agp = "9.0.0-alpha06"
+kotlin = "2.3.+"
+compose = "1.10.+"
+gitVersion = "5.+"
+
+compileSdk = "37"
+buildTools = "37.0.0"
+
+[libraries]
+fvv = "ren.shiror.fvv:core:2.+"
+
+gitVersion = { module = "com.palantir.gradle.gitversion:gradle-git-version", version.ref = "gitVersion" }
+
+androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+kotlinxCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.+"
+kotlinxBrowser = "org.jetbrains.kotlinx:kotlinx-browser:0.5.+"
+
+composeUi = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
+composeRuntime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
+
+pangutextAndroid = "com.highcapable.pangutext:pangutext-android:1.0.+"
+
+[plugins]
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+androidMultiplatform = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+gitVersion = { id = "com.palantir.git-version" }
+
+buildconfig = "com.github.gmazzo.buildconfig:6.+"

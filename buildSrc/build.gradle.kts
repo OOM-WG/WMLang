@@ -1,6 +1,4 @@
-plugins {
-	`kotlin-dsl`
-}
+plugins { `kotlin-dsl` }
 
 repositories {
 	mavenLocal()
@@ -9,7 +7,4 @@ repositories {
 	gradlePluginPortal()
 }
 
-//noinspection GradleDynamicVersion
-dependencies {
-	implementation("com.palantir.gradle.gitversion:gradle-git-version:+")
-}
+dependencies { implementation(libs.gitVersion) }

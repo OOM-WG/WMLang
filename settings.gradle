@@ -6,17 +6,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-
-// noinspection GradleDynamicVersion
-plugins {
-	// noinspection AndroidGradlePluginVersion
-	id 'com.android.kotlin.multiplatform.library' version '+' apply false
-	id 'org.jetbrains.kotlin.multiplatform' version '+' apply false
-	id 'org.jetbrains.kotlin.plugin.compose' version '+' apply false
-	id 'org.jetbrains.compose' version '+' apply false
-	id 'com.palantir.git-version' version '+' apply false
-}
-
 dependencyResolutionManagement {
 	repositories {
 		mavenLocal()
@@ -26,7 +15,7 @@ dependencyResolutionManagement {
 			url 'https://oom-maven.sawahara.host'
 			content {
 				includeGroupAndSubgroups 'ren.shiror'
-				includeGroupAndSubgroups 'dev.oom-wg'
+				includeGroupAndSubgroups 'sbs.fvvlang'
 			}
 		}
 		gradlePluginPortal()
@@ -35,4 +24,6 @@ dependencyResolutionManagement {
 
 rootProject.name = 'PureJoy FYL'
 
-include ':fytxt:plugin', ':fytxt:runtime:common', ':fytxt:runtime:compose', ':fytxt:runtime:systxt'
+include ':fytxt:plugin'
+include ':fytxt:bom'
+include ':fytxt:runtime:core', ':fytxt:runtime:compose', ':fytxt:runtime:systxt'

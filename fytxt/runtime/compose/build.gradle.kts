@@ -7,7 +7,6 @@ plugins {
 	id("com.android.kotlin.multiplatform.library")
 	kotlin("multiplatform")
 	kotlin("plugin.compose")
-	id("org.jetbrains.compose")
 	`maven-publish`
 	id("com.palantir.git-version")
 }
@@ -16,11 +15,11 @@ kotlin {
 	applyDefaultHierarchyTemplate()
 	withSourcesJar()
 
-	androidLibrary {
+	android {
 		namespace = "dev.oom_wg.purejoy.fyl.fytxt.compose"
-		compileSdk = 36
+		compileSdk = libs.versions.compileSdk.get().toInt()
 		minSdk = 16
-		buildToolsVersion = "36.1.0"
+		buildToolsVersion = libs.versions.buildTools.get()
 
 		compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
@@ -34,21 +33,19 @@ kotlin {
 	jvm { compilerOptions.jvmTarget = JvmTarget.JVM_11 }
 
 	iosArm64()
-	iosX64()
 	iosSimulatorArm64()
 
 	js(IR) { browser() }
 	wasmJs { browser() }
 
-	// noinspection GradleDynamicVersion
 	sourceSets {
 		commonMain.dependencies {
-			implementation(project(":fytxt:runtime:common"))
-			implementation("org.jetbrains.compose.ui:ui:+")
-			implementation("org.jetbrains.compose.runtime:runtime:+")
+			implementation(project(":fytxt:runtime:core"))
+			implementation(libs.composeUi)
+			implementation(libs.composeRuntime)
 		}
 		androidMain.dependencies {
-			implementation("com.highcapable.pangutext:pangutext-android:+")
+			implementation(libs.pangutextAndroid)
 		}
 	}
 }
