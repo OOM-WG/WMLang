@@ -27,6 +27,7 @@ kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_11
 
 dependencies {
 	implementation(libs.fvv)
+	implementation(libs.kotlinpoet)
 
 	compileOnly(gradleApi())
 	compileOnly(localGroovy())
@@ -39,7 +40,7 @@ gradlePlugin {
 	website = "https://github.com/OOM-WG/PureJoy-FYL"
 	vcsUrl = "https://github.com/OOM-WG/PureJoy-FYL"
 	plugins {
-		create("MLang") {
+		create("FYTxt") {
 			id = "dev.oom-wg.purejoy.fyl.fytxt"
 			implementationClass = "dev.oom_wg.purejoy.fyl.fytxt.FYTxtPlugin"
 			displayName = "PureJoy FYTxt Gradle Plugin"
@@ -48,6 +49,4 @@ gradlePlugin {
 	}
 }
 
-publishing {
-	repositories { mavenLocal() }
-}
+publishing { repositories { mavenLocal() } }

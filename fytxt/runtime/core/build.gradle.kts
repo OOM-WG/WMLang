@@ -17,7 +17,7 @@ kotlin {
 	android {
 		namespace = "dev.oom_wg.purejoy.fyl.fytxt.core"
 		compileSdk = libs.versions.compileSdk.get().toInt()
-		minSdk = 16
+		minSdk = 1
 		buildToolsVersion = libs.versions.buildTools.get()
 
 		compilerOptions.jvmTarget = JvmTarget.JVM_1_8
