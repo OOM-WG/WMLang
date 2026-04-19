@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage")
+@file:Suppress("PackageDirectoryMismatch", "UnstableApiUsage")
 
 package dev.oom_wg.purejoy.fyl.fytxt
 

@@ -1,4 +1,4 @@
-@file:Suppress("PackageDirectoryMismatch", "unused")
+@file:Suppress("PackageDirectoryMismatch")
 
 package dev.oom_wg.purejoy.fyl.fytxt.compose
 
@@ -10,6 +10,7 @@ class FYTxtState(val tags: State<List<FYTxtTag>>, val group: State<FYTxtGroup?>)
 
 val LocalFYTxtState = staticCompositionLocalOf<FYTxtState> { TODO() }
 
+@Suppress("unused")
 @Composable
 fun FYTxtProvider(content: @Composable () -> Unit) {
 	LocaleObserver()
@@ -21,7 +22,7 @@ fun FYTxtProvider(content: @Composable () -> Unit) {
 	CompositionLocalProvider(LocalFYTxtState provides fytxtState) { content() }
 }
 
-@Suppress("UnusedReceiverParameter")
+@Suppress("unused", "UnusedReceiverParameter")
 @Composable
 inline fun <T> FYTxtConfig.observe(crossinline block: () -> T): T {
 	val state = LocalFYTxtState.current
