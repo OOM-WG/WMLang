@@ -15,9 +15,9 @@ javaPlatform { allowDependencies() }
 
 dependencies {
 	constraints {
-		api("dev.oom-wg.purejoy.fyl.fytxt:core:${version}")
-		api("dev.oom-wg.purejoy.fyl.fytxt:compose:${version}")
-		api("dev.oom-wg.purejoy.fyl.fytxt:systxt:${version}")
+		api(project(":fytxt:runtime:core"))
+		api(project(":fytxt:runtime:compose"))
+		api(project(":fytxt:runtime:systxt"))
 	}
 }
 
