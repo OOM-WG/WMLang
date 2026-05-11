@@ -17,7 +17,7 @@ kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.r
 
 kotlinpoet = "com.squareup:kotlinpoet:2.3.+"
 
-kotlinxCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.+"
+kotlinxCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.+"
 kotlinxBrowser = "org.jetbrains.kotlinx:kotlinx-browser:0.5.+"
 
 composeUi = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
