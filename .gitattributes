@@ -6,6 +6,8 @@ gradlew linguist-vendored
 gradlew.bat linguist-vendored
 amper linguist-vendored
 amper.bat linguist-vendored
+kotlin linguist-vendored
+kotlin.bat linguist-vendored
 
 *.md text eol=lf linguist-documentation
 *.mkd text eol=lf linguist-documentation
