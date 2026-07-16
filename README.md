@@ -1,7 +1,7 @@
 # [PureJoy - FYTxt](https://app.niggergo.work/purejoy/fytxt)
 
 > [!TIP]
-> 此项目隶属于[欢律遗愉系列](https://oom-wg.dev/projects)，是 [SSU](https://ssu.oom-wg.dev) 的衍生项目
+> 此项目隶属于[欢律遗愉系列](https://oom-wg.dev/projects)，是 [SSU](https://shirosu.gal.tf/) 的衍生项目
 
 FYTxt 是支持 **Kotlin MultiPlatform** 以及 **Compose MultiPlatform** 的多语言框架
 
