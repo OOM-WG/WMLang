@@ -1,12 +1,11 @@
 @file:Suppress("PackageDirectoryMismatch", "UnstableApiUsage")
 
-package dev.oom_wg.purejoy.fyl.fytxt
+package tf.gal.shirosu.fyl.fytxt
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import dev.oom_wg.purejoy.fyl.fytxt.plugin.BuildConfig
 import org.gradle.api.*
 import org.gradle.api.file.*
 import org.gradle.api.plugins.JavaPlugin
@@ -15,10 +14,11 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import ren.shiror.fvv.FVVV
+import ren.shiror.fyl.fytxt.plugin.BuildConfig
 import java.io.File
 
-const val fytxtGrp = "dev.oom-wg.purejoy.fyl.fytxt"
-const val fytxtPkg = "dev.oom_wg.purejoy.fyl.fytxt"
+const val fytxtGrp = "ren.shiror.fyl.fytxt"
+const val fytxtPkg = "tf.gal.shirosu.fyl.fytxt"
 
 abstract class FYTxtExtension {
 	abstract val packageName: Property<String>
@@ -34,7 +34,7 @@ abstract class FYTxtExtension {
 	abstract val internalClass: Property<Boolean>
 
 	init {
-		packageName.convention("dev.oom_wg.purejoy.fyl.fytxt")
+		packageName.convention(fytxtPkg)
 		objectName.convention("FYTxt")
 		composeGen.convention(false)
 		internalClass.convention(true)

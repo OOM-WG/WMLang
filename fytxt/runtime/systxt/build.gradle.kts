@@ -10,7 +10,7 @@ plugins {
 kotlin.compilerOptions.jvmTarget = JvmTarget.JVM_1_8
 
 android {
-	namespace = "dev.oom_wg.purejoy.fyl.fytxt.systxt"
+	namespace = "ren.shiror.fyl.fytxt.systxt"
 	compileSdk = libs.versions.compileSdk.get().toInt()
 	buildToolsVersion = libs.versions.buildTools.get()
 
@@ -50,7 +50,7 @@ afterEvaluate {
 		publications {
 			create<MavenPublication>("release") {
 				from(components["release"])
-				configurePublishConfig("for Android System Text")()
+				configureFYTxtPublishConfig("for Android System Text")()
 			}
 		}
 		repositories { mavenLocal() }

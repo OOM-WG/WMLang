@@ -1,10 +1,10 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt.compose
+package cn.xz.tar.shirosu.fyl.fytxt.compose
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalConfiguration
-import dev.oom_wg.purejoy.fyl.fytxt.FYTxtConfig
+import tf.gal.shirosu.fyl.fytxt.FYTxtConfig
 
 @Composable
 internal actual fun LocaleObserver() {

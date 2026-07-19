@@ -1,7 +1,8 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt
+package tf.gal.shirosu.fyl.fytxt
 
+import cn.xz.tar.shirosu.fyl.fytxt.platformLocaleProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.*
@@ -18,21 +19,22 @@ interface FYTxtTag {
 	val pattern: Regex?
 }
 
+@Suppress("unused")
 object FYTxtConfig {
 	private val scope = CoroutineScope(SupervisorJob())
 
 	private val _locTags = MutableStateFlow(platformLocaleProvider.getLocales())
-	@Suppress("unused") val locTags = _locTags.asStateFlow()
+	val locTags = _locTags.asStateFlow()
 
 	private val _lock = MutableStateFlow(false)
 	val lock = _lock.asStateFlow()
 
 	private val _activeGroup = MutableStateFlow(null as FYTxtGroup?)
-	@Suppress("unused") val activeGroup = _activeGroup.asStateFlow()
+	val activeGroup = _activeGroup.asStateFlow()
 	private lateinit var appTags: List<FYTxtTag>
 
 	private val _activeTags = MutableStateFlow(emptyList<FYTxtTag>())
-	@Suppress("unused") val activeTags = _activeTags.asStateFlow()
+	val activeTags = _activeTags.asStateFlow()
 
 	init {
 		combine(_locTags, _activeGroup.filterNotNull().take(1)) { sysTags, _ ->
@@ -43,7 +45,6 @@ object FYTxtConfig {
 			?.onEach { tags -> if (!_lock.value) _locTags.value = tags }?.launchIn(scope)
 	}
 
-	@Suppress("unused")
 	fun updateTags(tags: List<String>? = null, lock: Boolean? = null): List<String> {
 		lock?.let { _lock.value = it }
 		return (tags ?: if (!_lock.value) platformLocaleProvider.getLocales() else null)?.also {
@@ -52,7 +53,6 @@ object FYTxtConfig {
 		} ?: _locTags.value
 	}
 
-	@Suppress("unused")
 	fun updateGroup(group: FYTxtGroup) = group.also { _activeGroup.value = it }
 
 	private fun filterTags(sysTags: List<String>) = LinkedHashSet<FYTxtTag>().apply {
@@ -62,8 +62,8 @@ object FYTxtConfig {
 	}.toList()
 
 	/**
-	 * @suppress used by yourself*/
-	@Suppress("unused")
+	 * @suppress used by yourself
+	 */
 	fun init(group: FYTxtGroup, tags: List<FYTxtTag>) {
 		appTags = tags
 		_activeGroup.value = group

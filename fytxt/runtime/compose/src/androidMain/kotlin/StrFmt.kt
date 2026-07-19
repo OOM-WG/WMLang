@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt.strfmt
+package tf.gal.shirosu.fyl.fytxt.strfmt
 
 import com.highcapable.pangutext.android.PanguText
 

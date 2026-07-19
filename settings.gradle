@@ -22,7 +22,7 @@ dependencyResolutionManagement {
 	}
 }
 
-rootProject.name = 'PureJoy-FYL'
+rootProject.name = 'ShiroSU-FYL'
 
 include ':fytxt:plugin'
 include ':fytxt:bom'

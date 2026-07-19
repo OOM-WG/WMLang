@@ -7,8 +7,8 @@ plugins {
 	id("com.palantir.git-version")
 }
 
-val versionDetails: Closure<VersionDetails> by extra
-group = "dev.oom_wg.purejoy.fyl.fytxt"
+@Suppress("UNCHECKED_CAST") val versionDetails = extra["versionDetails"] as Closure<VersionDetails>
+group = "ren.shiror.fyl.fytxt"
 version = versionDetails().lastTag
 
 javaPlatform { allowDependencies() }
@@ -26,7 +26,7 @@ afterEvaluate {
 		publications {
 			create<MavenPublication>("maven") {
 				from(components["javaPlatform"])
-				configurePublishConfig("BOM")()
+				configureFYTxtPublishConfig("BOM")()
 			}
 		}
 		repositories { mavenLocal() }

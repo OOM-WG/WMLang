@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt.compose
+package cn.xz.tar.shirosu.fyl.fytxt.compose
 
 import androidx.compose.runtime.Composable
 

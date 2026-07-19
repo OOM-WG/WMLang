@@ -1,7 +1,7 @@
 [versions]
-agp = "9.0.0-alpha06"
+agp = "9.0.0"
 kotlin = "2.3.+"
-compose = "1.10.+"
+compose = "1.11.+"
 gitVersion = "5.+"
 
 compileSdk = "37"

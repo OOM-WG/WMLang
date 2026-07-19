@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt
+package cn.xz.tar.shirosu.fyl.fytxt
 
 import kotlinx.cinterop.*
 import platform.posix.*

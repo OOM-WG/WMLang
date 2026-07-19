@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt
+package cn.xz.tar.shirosu.fyl.fytxt
 
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES

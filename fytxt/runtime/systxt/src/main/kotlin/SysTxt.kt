@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch", "unused") @file:SuppressLint("ComposableNaming")
 
-package dev.oom_wg.purejoy.fyl.fytxt.systxt
+package tf.gal.shirosu.fyl.fytxt.systxt
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable

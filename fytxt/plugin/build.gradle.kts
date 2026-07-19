@@ -10,8 +10,8 @@ plugins {
 	alias(libs.plugins.buildconfig)
 }
 
-val versionDetails: Closure<VersionDetails> by extra
-group = "dev.oom_wg.purejoy.fyl.fytxt"
+@Suppress("UNCHECKED_CAST") val versionDetails = extra["versionDetails"] as Closure<VersionDetails>
+group = "ren.shiror.fyl.fytxt"
 version = versionDetails().lastTag
 
 buildConfig {
@@ -37,13 +37,13 @@ dependencies {
 }
 
 gradlePlugin {
-	website = "https://github.com/OOM-WG/PureJoy-FYL"
-	vcsUrl = "https://github.com/OOM-WG/PureJoy-FYL"
+	website = "https://shirosu.gal.tf/fyl"
+	vcsUrl = "https://github.com/OOM-WG/ShiroSU-FYL.git"
 	plugins {
 		create("FYTxt") {
-			id = "dev.oom-wg.purejoy.fyl.fytxt"
-			implementationClass = "dev.oom_wg.purejoy.fyl.fytxt.FYTxtPlugin"
-			displayName = "PureJoy FYTxt Gradle Plugin"
+			id = "ren.shiror.fyl.fytxt"
+			implementationClass = "tf.gal.shirosu.fyl.fytxt.FYTxtPlugin"
+			displayName = "ShiroSU FYL - FYTxt Gradle Plugin"
 			description = "Kotlin Multi Language Framework"
 		}
 	}

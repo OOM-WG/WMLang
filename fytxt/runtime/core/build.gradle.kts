@@ -15,7 +15,7 @@ kotlin {
 	withSourcesJar()
 
 	android {
-		namespace = "dev.oom_wg.purejoy.fyl.fytxt.core"
+		namespace = "ren.shiror.fyl.fytxt.core"
 		compileSdk = libs.versions.compileSdk.get().toInt()
 		minSdk = 1
 		buildToolsVersion = libs.versions.buildTools.get()
@@ -66,7 +66,7 @@ kotlin {
 
 afterEvaluate {
 	publishing {
-		publications { withType<MavenPublication>(configurePublishConfig()) }
+		publications { withType<MavenPublication>(configureFYTxtPublishConfig()) }
 		repositories { mavenLocal() }
 	}
 }

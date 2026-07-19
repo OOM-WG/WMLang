@@ -4,15 +4,20 @@ import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.*
 
-fun Project.configurePublishConfig(nameExt: String = ""): MavenPublication.() -> Unit = {
-	groupId = "dev.oom-wg.purejoy.fyl.fytxt"
-	val versionDetails: Closure<VersionDetails> by extra
+fun Project.configurePublishConfig(
+	groupName: String,
+	projectName: String,
+	desc: String,
+	nameExt: String = ""
+): MavenPublication.() -> Unit = {
+	groupId = "ren.shiror.fyl.$groupName"
+	@Suppress("UNCHECKED_CAST") val versionDetails = extra["versionDetails"] as Closure<VersionDetails>
 	version = versionDetails().lastTag ?: "0.0"
 
 	pom {
-		name = "PureJoy FYTxt${if (nameExt.isNotEmpty()) " $nameExt" else ""}"
-		description = "Kotlin Multi Language Framework${if (nameExt.isNotEmpty()) " $nameExt" else ""}"
-		url = "https://app.niggergo.work/purejoy/fytxt/"
+		name = "ShiroSU FYL - $projectName${if (nameExt.isNotEmpty()) " $nameExt" else ""}"
+		description = desc
+		url = "https://shirosu.gal.tf/fyl"
 
 		licenses {
 			license {
@@ -37,9 +42,9 @@ fun Project.configurePublishConfig(nameExt: String = ""): MavenPublication.() ->
 		}
 
 		scm {
-			connection = "scm:git:https://github.com/OOM-WG/PureJoy-FYL.git"
-			developerConnection = "scm:git:https://github.com/OOM-WG/PureJoy-FYL.git"
-			url = "https://github.com/OOM-WG/PureJoy-FYL.git"
+			connection = "scm:git:https://github.com/OOM-WG/ShiroSU-FYL.git"
+			developerConnection = "scm:git:https://github.com/OOM-WG/ShiroSU-FYL.git"
+			url = "https://github.com/OOM-WG/ShiroSU-FYL.git"
 		}
 	}
 
@@ -50,3 +55,10 @@ fun Project.configurePublishConfig(nameExt: String = ""): MavenPublication.() ->
 		).firstOrNull { project.configurations.findByName(it) != null }
 	}?.let { versionMapping { allVariants { fromResolutionOf(it) } } }
 }
+
+fun Project.configureFYTxtPublishConfig(nameExt: String = "") = configurePublishConfig(
+	"fytxt",
+	"FYTxt",
+	"Kotlin Multi Language Framework${if (nameExt.isNotEmpty()) " $nameExt" else ""}",
+	nameExt
+)

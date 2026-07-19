@@ -1,9 +1,10 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package dev.oom_wg.purejoy.fyl.fytxt.compose
+package tf.gal.shirosu.fyl.fytxt.compose
 
 import androidx.compose.runtime.*
-import dev.oom_wg.purejoy.fyl.fytxt.*
+import cn.xz.tar.shirosu.fyl.fytxt.compose.LocaleObserver
+import tf.gal.shirosu.fyl.fytxt.*
 
 @Stable
 class FYTxtState(val tags: State<List<FYTxtTag>>, val group: State<FYTxtGroup?>)

@@ -1,7 +1,13 @@
-# [PureJoy - FYTxt](https://app.niggergo.work/purejoy/fytxt)
+# ShiroSU FYL
 
-> [!TIP]
-> 此项目隶属于[欢律遗愉系列](https://oom-wg.dev/projects)，是 [SSU](https://shirosu.gal.tf/) 的衍生项目
+> [!NOTE]
+> 此项目隶属于 [**ShiroSU 系列**](https://shirosu.gal.tf/)
+
+- [官网](https://shirosu.gal.tf/fyl)
+
+## FYTxt
+
+- [文档](https://app.niggergo.work/ssu/fytxt)
 
 FYTxt 是支持 **Kotlin MultiPlatform** 以及 **Compose MultiPlatform** 的多语言框架
 
