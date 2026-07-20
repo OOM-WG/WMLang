@@ -9,7 +9,9 @@ import tf.gal.shirosu.fyl.fytxt.*
 @Stable
 class FYTxtState(val tags: State<List<FYTxtTag>>, val group: State<FYTxtGroup?>)
 
-val LocalFYTxtState = staticCompositionLocalOf<FYTxtState> { TODO() }
+val LocalFYTxtState = staticCompositionLocalOf {
+	FYTxtState(mutableStateOf(emptyList()), mutableStateOf(null))
+}
 
 @Suppress("unused")
 @Composable

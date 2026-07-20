@@ -33,11 +33,14 @@ abstract class FYTxtExtension {
 
 	abstract val internalClass: Property<Boolean>
 
+	abstract val exportDeps: Property<Boolean>
+
 	init {
 		packageName.convention(fytxtPkg)
 		objectName.convention("FYTxt")
 		composeGen.convention(false)
 		internalClass.convention(true)
+		exportDeps.convention(false)
 	}
 }
 
@@ -45,39 +48,37 @@ abstract class FYTxtExtension {
 class FYTxtPlugin : Plugin<Project> {
 	override fun apply(project: Project) {
 		project.extensions.create("fytxt", FYTxtExtension::class.java)
-		project.pluginManager.withPlugin("com.android.application") { setup(project) }
-		project.pluginManager.withPlugin("com.android.library") { setup(project) }
-		project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") { setup(project) }
+		project.pluginManager.withPlugin("com.android.application") { setup(project, true) }
+		project.pluginManager.withPlugin("com.android.library") { setup(project, false) }
+		project.pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") { setup(project, false) }
 	}
 
-	private fun setup(project: Project) {
-		val ext = project.extensions.getByType(FYTxtExtension::class.java)
+	private fun setup(project: Project, application: Boolean) = with(project) {
+		val ext = extensions.getByType(FYTxtExtension::class.java)
 
-		val kotlin = runCatching { project.extensions.findByType(KotlinMultiplatformExtension::class.java) }.getOrNull()
-		val android =
-			runCatching { project.extensions.findByType(CommonExtension::class.java) }.getOrNull()?.takeIf { kotlin == null }
+		val kotlin = runCatching { extensions.findByType(KotlinMultiplatformExtension::class.java) }.getOrNull()
+		val android = runCatching { extensions.findByType(CommonExtension::class.java) }.getOrNull()?.takeIf { kotlin == null }
 
-		val bom = project.dependencies.platform("$fytxtGrp:bom:${BuildConfig.VERSION}")
-		val core = "$fytxtGrp:core"
-		val compose = "$fytxtGrp:compose"
-
-		kotlin?.apply {
-			sourceSets.commonMain.get().dependencies {
-				implementation(bom)
-				implementation(core)
-			}
-		} ?: project.dependencies.apply {
-			add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, bom)
-			add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, core)
+		fun addDep(dep: Any = dependencies.platform("$fytxtGrp:bom:${BuildConfig.VERSION}")) {
+			kotlin?.apply {
+				sourceSets.commonMain.get().dependencies {
+					if (ext.exportDeps.getOrElse(false)) api(dep)
+					else implementation(dep)
+				}
+			} ?: dependencies.add(
+				if (ext.exportDeps.getOrElse(false) && !application) JavaPlugin.API_CONFIGURATION_NAME else JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME,
+				dep
+			)
 		}
+		addDep()
 
-		val genTask = project.tasks.register("generateFYTxt", GenerateFYTxtTask::class.java) { task ->
+		val genTask = tasks.register("generateFYTxt", GenerateFYTxtTask::class.java) { task ->
 			task.packageName.set(ext.packageName)
 			task.objectName.set(ext.objectName)
 			task.langSrcRoots.set(ext.langSrcs.map { map -> map.mapValues { (_, dir) -> dir.asFile.absolutePath } })
 			task.langSrcFiles.from(ext.langSrcs.map { map ->
 				map.values.map { dir ->
-					project.fileTree(dir) { tree -> tree.include("**/*.fvv", "**/*.fw", "**/*.fyl") }
+					fileTree(dir) { tree -> tree.include("**/*.fvv", "**/*.fw", "**/*.fyl") }
 				}
 			})
 			task.langAliases.set(ext.langAliases)
@@ -85,23 +86,23 @@ class FYTxtPlugin : Plugin<Project> {
 			task.composeGen.set(ext.composeGen)
 			task.internalClass.set(ext.internalClass)
 
-			task.outputDir.set(project.layout.buildDirectory.dir("generated/fytxt/kotlin"))
+			task.outputDir.set(layout.buildDirectory.dir("generated/fytxt/kotlin"))
 		}
 
 		kotlin?.apply { sourceSets.commonMain.get().kotlin.srcDir(genTask) }
-		if (android != null) project.extensions.configure(AndroidComponentsExtension::class.java) { ext ->
+		if (android != null) extensions.configure(AndroidComponentsExtension::class.java) { ext ->
 			ext.onVariants { variant ->
 				variant.sources.java?.addGeneratedSourceDirectory(genTask, GenerateFYTxtTask::outputDir)
 			}
 		}
 
-		project.tasks.matching { it.name == "prepareKotlinIdeaImport" }.configureEach { task ->
+		tasks.matching { it.name == "prepareKotlinIdeaImport" }.configureEach { task ->
 			task.dependsOn(genTask)
 		}
-		project.afterEvaluate {
-			if (ext.composeGen.getOrElse(false)) kotlin?.apply {
-				sourceSets.commonMain.get().dependencies { implementation(compose) }
-			} ?: project.dependencies.add(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME, compose)
+		afterEvaluate {
+			addDep()
+			addDep("$fytxtGrp:core")
+			if (ext.composeGen.getOrElse(false)) addDep("$fytxtGrp:compose")
 		}
 	}
 }
