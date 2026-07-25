@@ -81,7 +81,7 @@ class FYTxtPlugin : Plugin<Project> {
 					fileTree(dir) { tree -> tree.include("**/*.fvv", "**/*.fw", "**/*.fyl") }
 				}
 			})
-			task.langAliases.set(ext.langAliases)
+			task.langAliases.set(ext.langAliases.map { map -> map.mapKeys { (key, _) -> key.uppercase() } })
 			task.defaultLang.set(ext.defaultLang.map { it.uppercase() })
 			task.composeGen.set(ext.composeGen)
 			task.internalClass.set(ext.internalClass)
@@ -228,8 +228,13 @@ abstract class GenerateFYTxtTask : DefaultTask() {
 							tag,
 							TypeSpec.anonymousClassBuilder().addProperty(
 								PropertySpec.builder("pattern", regexType, KModifier.OVERRIDE)
-									.initializer(langAliases[tag]?.let { CodeBlock.of("%S.toRegex()", it) }
-										?: CodeBlock.of("null")).build()).build())
+									.initializer(langAliases[tag]?.let {
+										CodeBlock.of(
+											"%S.toRegex(%T.IGNORE_CASE)",
+											it,
+											RegexOption::class
+										)
+									} ?: CodeBlock.of("null")).build()).build())
 					}
 				}.build()
 		}.apply { builder.addType(this) }
@@ -306,7 +311,10 @@ abstract class GenerateFYTxtTask : DefaultTask() {
 					addType(
 						TypeSpec.objectBuilder(key).addInitializerBlock(
 							CodeBlock.builder().addStatement("%T", groupsType).build()
-						).apply { addNodes(node.nodes, path + key) }.build()
+						).apply {
+							if (node.desc.isNotEmpty()) addKdoc("%L", buildKdoc(node.desc))
+							addNodes(node.nodes, path + key)
+						}.build()
 					)
 				}
 			}
